@@ -1,0 +1,69 @@
+# logs stored in HOMEBREW_PREFIF/var/log/yabai
+yabai -m config debug_output on
+
+yabai -m config layout bsp
+
+yabai -m config top_padding    10
+yabai -m config bottom_padding 10
+yabai -m config left_padding   10
+yabai -m config right_padding  10
+yabai -m config window_gap     10
+
+# float some windows
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Messages$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Signal$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Parallels Desktop$" title="Configuration$" manage=off
+yabai -m rule --add title="Preferences$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" title="Teams /" manage=off
+yabai -m rule --add app="^Contacts$" manage=off
+yabai -m rule --add app="^Parallels Desktop$" title="Control Center" manage=off
+yabai -m rule --add app="^Firefox$" title="^Opening" manage=off
+yabai -m rule --add app="^VMware Fusion$" manage=off
+yabai -m rule --add app="^Discord$" manage=off
+
+
+# mouse selects focus (without clicking)
+# yabai -m config focus_follows_mouse autoraise
+# move the mouse to the center of a newly focused window
+# yabai -m config mouse_follows_focus on
+
+# limelight MUST BE AT EOF
+killall limelight &> /dev/null
+/usr/local/bin/limelight &> /dev/null &
+
+### Simple-Bar Settings
+yabai -m config external_bar main:0:30
+
+# Refresh spaces widget on space change
+yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# Refresh spaces widget on display focus change
+yabai -m signal --add event=display_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# Refresh spaces widget on window resize
+yabai -m signal --add event=window_resized action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# Refresh process widget on space change
+yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+
+# Refresh process widget on when focused application changes
+yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when focused application changes
+yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget on when focused application changes
+yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when focused application changes
+yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget on when an application window is closed
+yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when an application window is closed
+yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget when current window title changes
+yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
