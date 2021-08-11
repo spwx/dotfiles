@@ -1,10 +1,12 @@
 if status --is-interactive
-  eval (/opt/homebrew/bin/brew shellenv)
+  set -l os (uname)
+  if test "$os" = Darwin
+    eval (/opt/homebrew/bin/brew shellenv)
+    alias ls="gls --color -F"
+    alias pwcopy="tr -d '\n' | pbcopy"
+  end
 
   starship init fish | source
-  alias ls="gls --color -F"
-  alias pwcopy="tr -d '\n' | pbcopy"
-  # alias e="emacsclient -n"
   alias e='emacsclient -nw -a ""'
 
   set -gx PATH "$HOME/.cargo/bin" $PATH
