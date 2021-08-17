@@ -67,21 +67,14 @@
 
 (add-hook 'python-mode-hook 'pyvenv-autoload)
 
-;; better touch scroll on iPad
-(unless (display-graphic-p)
-  (xterm-mouse-mode t)
-  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
-  (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
 (map! :n "U" 'undo-tree-visualize)
 
 (setq projectile-project-search-path '("~/projects/"))
 
 (map! :leader
-      :desc "Add line below" "l" #'+evil/insert-newline-below)
-
-(map! :leader
-      :desc "Add line above" "L" #'+evil/insert-newline-above)
+      :desc "line below" "i o" #'+evil/insert-newline-below
+      :desc "line above" "i O" #'+evil/insert-newline-above)
 
 (setq org-startup-folded t)
 
@@ -98,11 +91,21 @@
 
 ;; (server-start)
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
-      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
-      ;; doom-variable-pitch-font (font-spec :family "Overpass" :size 24)
-      ;; doom-unicode-font (font-spec :family "JuliaMono")
-      ;; doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
+;; GUI Settings
+(when (display-graphic-p)
+        (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36)))
+
+;; Terminal Settings
+(unless (display-graphic-p)
+  ;; better touch scroll on iPad
+  (xterm-mouse-mode t)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+
+  ;; tell tmux to enable CSI u mode
+  (when (getenv "TMUX")
+    (send-string-to-terminal "\033[>4;1m")))
 
 (map! :desc "parent headline"
       :map org-mode-map
@@ -114,3 +117,4 @@
   (setq! lsp-rust-analyzer-server-display-inlay-hints t
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
+
