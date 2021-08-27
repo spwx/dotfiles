@@ -63,18 +63,22 @@
        (if (f-exists? venv-path)
            (progn
              (pyvenv-activate venv-path))
-             t)))))
+         t)))))
 
 (add-hook 'python-mode-hook 'pyvenv-autoload)
-
-
-(map! :n "U" 'undo-tree-visualize)
-
-(setq projectile-project-search-path '("~/projects/"))
 
 (map! :leader
       :desc "line below" "i o" #'+evil/insert-newline-below
       :desc "line above" "i O" #'+evil/insert-newline-above)
+
+(map! :desc "parent headline"
+      :map org-mode-map
+      :n
+      "z u" #'outline-up-heading)
+
+(map! :n "U" 'undo-tree-visualize)
+
+(setq projectile-project-search-path '("~/projects/"))
 
 (setq org-startup-folded t)
 
@@ -93,7 +97,7 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-        (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 18)
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36)))
 
 ;; Terminal Settings
@@ -107,10 +111,6 @@
   (when (getenv "TMUX")
     (send-string-to-terminal "\033[>4;1m")))
 
-(map! :desc "parent headline"
-      :map org-mode-map
-      :n
-      "z u" #'outline-up-heading)
 
 (use-package! lsp-rust
   :config
@@ -118,3 +118,8 @@
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
 
+(lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "rust-analyzer-x86_64-unknown-linux-gnu")
+                     :major-modes '(rustic-mode)
+                     :remote? t))
+                     ;; :server-id 'pyls-remote))
