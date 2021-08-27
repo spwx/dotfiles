@@ -7,7 +7,7 @@ if status --is-interactive
   end
 
   starship init fish | source
-  alias e='emacsclient -nw -a ""'
+  alias e='emacsclient -n -a ""'
 
   set -gx PATH "$HOME/.cargo/bin" $PATH
   set -gx PATH "$HOME/.local/bin" $PATH
