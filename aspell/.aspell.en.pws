@@ -1,6 +1,7 @@
-personal_ws-1.1 en 83
+personal_ws-1.1 en 85
 Analytics
 Ansible
+Autostart
 Belkasoft
 BitLocker
 Breakpoint
@@ -59,6 +60,7 @@ endian
 filesystem
 fuzzer
 fuzzers
+geolocation
 ghidra
 iTerm
 iWatch
