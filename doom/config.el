@@ -117,9 +117,3 @@
   (setq! lsp-rust-analyzer-server-display-inlay-hints t
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
-
-(lsp-register-client
-    (make-lsp-client :new-connection (lsp-tramp-connection "rust-analyzer-x86_64-unknown-linux-gnu")
-                     :major-modes '(rustic-mode)
-                     :remote? t))
-                     ;; :server-id 'pyls-remote))
