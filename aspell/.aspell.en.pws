@@ -1,4 +1,4 @@
-personal_ws-1.1 en 85
+personal_ws-1.1 en 87
 Analytics
 Ansible
 Autostart
@@ -30,6 +30,7 @@ Mutex
 Mutexes
 PeStudio
 PowerShell
+Prefetch
 ProcDOT
 Procmon
 Proxmox
@@ -56,6 +57,7 @@ decompiles
 deobfuscate
 dereference
 disassembler
+eBPF
 endian
 filesystem
 fuzzer
