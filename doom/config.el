@@ -100,6 +100,11 @@
   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
+  (use-package! doom-modeline
+    :custom-face
+    (mode-line ((t (:height 0.85))))
+    (mode-line-inactive ((t (:height 0.85))))))
+
 ;; Terminal Settings
 (unless (display-graphic-p)
   ;; better touch scroll on iPad
