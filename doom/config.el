@@ -97,8 +97,8 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
-        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36)))
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
 ;; Terminal Settings
 (unless (display-graphic-p)
