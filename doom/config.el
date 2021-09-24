@@ -86,7 +86,6 @@
 
 (setq confirm-kill-emacs nil)
 
-(setq org-roam-directory "~/org/roam")
 
 (setq deft-directory "~/org")
 
@@ -122,3 +121,10 @@
   (setq! lsp-rust-analyzer-server-display-inlay-hints t
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
+
+(use-package! org-roam
+  :custom
+  (setq org-roam-directory "~/org/roam")
+  (org-roam-dailies-capture-templates
+   '(("d" "default" entry "* %<%I:%M %p>: %?"
+      :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
