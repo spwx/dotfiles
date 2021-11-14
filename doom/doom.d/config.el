@@ -96,8 +96,8 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
+  (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
+        doom-big-font (font-spec :family "JetBrains Mono" :size 36))
 
   (use-package! doom-modeline
     :custom-face
