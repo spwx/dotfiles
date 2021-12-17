@@ -122,6 +122,11 @@
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
 
+(map! :desc "reposition to code"
+      :map rustic-mode-map
+      :n
+      "z z" #'reposition-window)
+
 (use-package! org-roam
   :custom
   (setq org-roam-directory "~/org/roam")
