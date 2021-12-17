@@ -170,7 +170,8 @@ cmd + ctrl + alt - t : yabai -m window --toggle float;\
 #           yabai -m window --toggle pip
 
 # reload yabai
-ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+ctrl + alt + cmd - r : brew services restart yabai
 
 # open applications
 ctrl + alt + cmd - m : open -a /System/Applications/Messages.app/
