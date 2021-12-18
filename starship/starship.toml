@@ -1,5 +1,2 @@
 [nodejs]
 disabled=true
-
-[hostname]
-format =  "[$hostname](bold red) "
