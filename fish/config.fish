@@ -3,7 +3,6 @@ if status --is-interactive
   if test "$os" = Darwin
     eval (/opt/homebrew/bin/brew shellenv)
     alias ls="gls --color -F"
-    alias pwcopy="tr -d '\n' | pbcopy"
   end
 
   starship init fish | source
