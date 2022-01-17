@@ -128,6 +128,17 @@
       "z z" #'reposition-window
       "TAB" #'evil-toggle-fold)
 
+(map! :desc "reposition to code"
+      :map rustic-mode-map
+      :n
+      "z z" #'reposition-window
+      "TAB" #'evil-toggle-fold)
+
+(map! :desc "send escape to vterm"
+      :after vterm
+      :map vterm-mode-map
+      "C-c <escape>" #'vterm-send-escape)
+
 (use-package! org-roam
   :custom
   (setq org-roam-directory "~/org/roam")
