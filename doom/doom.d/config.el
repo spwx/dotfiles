@@ -128,17 +128,6 @@
       "z z" #'reposition-window
       "TAB" #'evil-toggle-fold)
 
-(map! :desc "reposition to code"
-      :map rustic-mode-map
-      :n
-      "z z" #'reposition-window
-      "TAB" #'evil-toggle-fold)
-
-(map! :desc "send escape to vterm"
-      :after vterm
-      :map vterm-mode-map
-      "C-c <escape>" #'vterm-send-escape)
-
 (use-package! org-roam
   :custom
   (setq org-roam-directory "~/org/roam")
@@ -146,4 +135,24 @@
    '(("d" "default" entry "* %<%I:%M %p>: %?"
       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
 
+;; emacs-libvterm
+;; --------------
+;;
+;; bring back the modeline
 (remove-hook! 'vterm-mode-hook 'hide-mode-line-mode)
+;;
+;; close window when vterm exits:
+;; https://github.com/akermu/emacs-libvterm/issues/24#issuecomment-907660950
+(add-hook 'vterm-exit-functions
+(lambda (_a _b)
+(let* ((buffer (current-buffer))
+        (window (get-buffer-window buffer)))
+        (when (not (one-window-p))
+        (delete-window window))
+        (kill-buffer buffer))))
+;;
+;; escape vim inside of emacs
+(map! :desc "send escape to vterm"
+      :after vterm
+      :map vterm-mode-map
+      "C-c <escape>" #'vterm-send-escape)
