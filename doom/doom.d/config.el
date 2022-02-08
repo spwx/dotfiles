@@ -138,8 +138,9 @@
 ;; emacs-libvterm
 ;; --------------
 ;;
-;; bring back the modeline
-(remove-hook! 'vterm-mode-hook 'hide-mode-line-mode)
+;; bring back the modeline when run from TTY
+(unless (display-graphic-p)
+(remove-hook! 'vterm-mode-hook 'hide-mode-line-mode))
 ;;
 ;; close window when vterm exits:
 ;; https://github.com/akermu/emacs-libvterm/issues/24#issuecomment-907660950
