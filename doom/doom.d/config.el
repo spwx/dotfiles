@@ -99,6 +99,8 @@
   (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
         doom-big-font (font-spec :family "JetBrains Mono" :size 36))
 
+  (setq-default line-spacing 0.1)
+
   (use-package! doom-modeline
     :custom-face
     (mode-line ((t (:height 0.85))))
