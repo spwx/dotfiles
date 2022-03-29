@@ -49,6 +49,7 @@
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! pinned-package)
 (unpin! rustic)
+(unpin! lsp-mode)
 ;; ...or multiple packages
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
