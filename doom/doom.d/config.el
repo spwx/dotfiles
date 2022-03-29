@@ -121,6 +121,7 @@
 (use-package! lsp-rust
   :config
   (setq! lsp-rust-analyzer-server-display-inlay-hints t
+         lsp-rust-analyzer-max-inlay-hint-length 25
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
 
