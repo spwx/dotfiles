@@ -54,19 +54,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; automatically start virtual environment
-(defun pyvenv-autoload ()
-  "Automatically activates pyvenv version if .venv directory exists."
-  (f-traverse-upwards
-   (lambda (path)
-     (let ((venv-path (f-expand ".venv" path)))
-       (if (f-exists? venv-path)
-           (progn
-             (pyvenv-activate venv-path))
-         t)))))
-
-(add-hook 'python-mode-hook 'pyvenv-autoload)
-
 (map! :leader
       :desc "line below" "i o" #'+evil/insert-newline-below
       :desc "line above" "i O" #'+evil/insert-newline-above)
