@@ -9,6 +9,11 @@ yabai -m config left_padding   10
 yabai -m config right_padding  10
 yabai -m config window_gap     10
 
+yabai -m config window_border                on
+yabai -m config window_border_width          6
+yabai -m config active_window_border_color   0x88689d6a
+yabai -m config normal_window_border_color   0x33555555
+
 # float some windows
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
@@ -29,15 +34,10 @@ yabai -m rule --add app="^VMware Fusion$" manage=off
 yabai -m rule --add app="^Discord$" manage=off
 yabai -m rule --add app="^Installer" manage=off
 
-
 # mouse selects focus (without clicking)
 # yabai -m config focus_follows_mouse autoraise
 # move the mouse to the center of a newly focused window
 # yabai -m config mouse_follows_focus on
-
-# limelight MUST BE AT EOF
-killall limelight &> /dev/null
-/usr/local/bin/limelight &> /dev/null &
 
 ### Simple-Bar Settings
 yabai -m config external_bar all:0:30
