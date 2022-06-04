@@ -111,8 +111,7 @@
 (map! :desc "reposition to code"
       :map rustic-mode-map
       :n
-      "z z" #'reposition-window
-      "TAB" #'evil-toggle-fold)
+      "z z" #'reposition-window)
 
 (use-package! org-roam
   :custom
