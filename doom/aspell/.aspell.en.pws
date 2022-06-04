@@ -1,4 +1,4 @@
-personal_ws-1.1 en 118
+personal_ws-1.1 en 124
 Analytics
 Ansible
 Autostart
@@ -90,16 +90,21 @@ iterables
 iterator's
 jumplist
 keylogging
+lemmatization
 libvterm
 macbook
+nameserver
 pagefile
 parsers
+performant
 pre
 precisions
 prepend
 radix
 reparse
+resolvers
 responder
+response
 shellbags
 stateful
 struct
@@ -114,6 +119,7 @@ uptime
 vectorization
 virtualized
 vterm
+webassembly
 wireshark
 xAnalyzer
 yara
