@@ -54,10 +54,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(map! :leader
-      :desc "line below" "i o" #'+evil/insert-newline-below
-      :desc "line above" "i O" #'+evil/insert-newline-above)
-
 (map! :desc "parent headline"
       :map org-mode-map
       :n
