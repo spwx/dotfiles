@@ -20,6 +20,7 @@ if status --is-interactive
 
   test -e /usr/bin/batcat
     alias cat /usr/bin/batcat
+    alias bat /usr/bin/batcat
   else
     alias cat "bat"
 
