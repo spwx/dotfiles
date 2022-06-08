@@ -14,7 +14,7 @@ if status --is-interactive
   end
 
   starship init fish | source
-  zoxide init fish | source
+  # zoxide init fish | source
 
   alias ls "exa"
   set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
