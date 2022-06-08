@@ -24,6 +24,9 @@ if status --is-interactive
   else
     alias cat "bat"
 
+  test -e /usr/bin/fdfind
+    alias fd /usr/bin/fdfind
+
   set -gx BAT_THEME "gruvbox-dark"
   set -gx BAT_STYLE "plain"
 
