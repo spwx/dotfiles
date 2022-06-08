@@ -18,7 +18,11 @@ if status --is-interactive
   alias ls "exa"
   set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
 
-  alias cat "bat"
+  test -e /usr/bin/batcat
+    alias cat /usr/bin/batcat
+  else
+    alias cat "bat"
+
   set -gx BAT_THEME "gruvbox-dark"
   set -gx BAT_STYLE "plain"
 
