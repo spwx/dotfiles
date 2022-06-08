@@ -1,5 +1,5 @@
 # this config requires the installation of:
-# exa, bat, zoxide, and starship
+# exa, bat, and starship
 
 if status --is-interactive
   set fish_greeting
@@ -18,14 +18,7 @@ if status --is-interactive
   alias ls "exa"
   set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
 
-  test -e /usr/bin/batcat
-    alias cat /usr/bin/batcat
-    alias bat /usr/bin/batcat
-  else
-    alias cat "bat"
-
-  test -e /usr/bin/fdfind
-    alias fd /usr/bin/fdfind
+  alias cat "bat"
 
   set -gx BAT_THEME "gruvbox-dark"
   set -gx BAT_STYLE "plain"
