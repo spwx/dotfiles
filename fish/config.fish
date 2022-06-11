@@ -12,6 +12,11 @@ if status --is-interactive
     end
   end
 
+  if test -n "$SSH_TTY" && test -n "$TMUX"
+      tmux set-option status-bg green
+      tmux set-option status-fg black
+  end
+
   starship init fish | source
 
   alias ls "exa"
