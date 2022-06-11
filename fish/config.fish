@@ -12,9 +12,11 @@ if status --is-interactive
     end
   end
 
-  if test -n "$SSH_TTY" && test -n "$TMUX"
+  if test -n "$SSH_TTY" || test -n "$ET_VERSION"
+    if test -n "$TMUX"
       tmux set-option status-bg green
       tmux set-option status-fg black
+    end
   end
 
   starship init fish | source
