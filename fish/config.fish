@@ -4,8 +4,7 @@
 if status --is-interactive
   set fish_greeting
 
-  set -l os (uname)
-  if test "$os" = Darwin
+  if test (uname) = Darwin
     if test -e /opt/homebrew/bin/brew
       eval (/opt/homebrew/bin/brew shellenv)
     else if test -e /usr/local/bin/brew
