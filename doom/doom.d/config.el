@@ -152,5 +152,3 @@
 ;; Fix tmux cursor shaping. Found here:
 ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/29
 (advice-add 'etcc--make-tmux-seq :override #'identity)
-
-(setq clipetty-assume-nested-mux nil)
