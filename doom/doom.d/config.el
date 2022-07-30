@@ -108,6 +108,12 @@
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
 
+(map! :desc "Open external docs"
+      :after rustic
+      :map rustic-mode-map
+      :n
+      "SPC m d" #'lsp-rust-analyzer-open-external-docs)
+
 (map! :desc "reposition to code"
       :map rustic-mode-map
       :n
