@@ -50,7 +50,6 @@
 ;(unpin! pinned-package)
 (unpin! rustic)
 (unpin! lsp-mode)
-(unpin! evil-terminal-cursor-changer)
 ;; ...or multiple packages
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
