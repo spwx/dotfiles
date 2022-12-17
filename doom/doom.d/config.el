@@ -70,6 +70,8 @@
 
 (setq confirm-kill-emacs nil)
 
+(setq evil-snipe-scope 'whole-buffer)
+
 (setq deft-directory "~/org")
 
 (after! persp-mode
@@ -84,10 +86,11 @@
 
   (setq-default line-spacing 0.1)
 
-  (use-package! doom-modeline
-    :custom-face
-    (mode-line ((t (:height 0.85))))
-    (mode-line-inactive ((t (:height 0.85))))))
+  ;; (use-package! doom-modeline
+  ;;   :custom-face
+  ;;   (mode-line ((t (:height 0.85))))
+  ;;   (mode-line-inactive ((t (:height 0.85)))))
+)
 
 ;; Terminal Settings
 (unless (display-graphic-p)
@@ -153,5 +156,22 @@
 ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/29
 (advice-add 'etcc--make-tmux-seq :override #'identity)
 
+;; org-store-link uses a headline's ID (if it has one)
+;; org-insert-last-stored-link
 (after! org
   (setq org-id-link-to-org-use-id 'use-existing))
+
+;; make OSC-52 work inside of mosh
+;; https://github.com/spudlyo/clipetty/issues/9#issuecomment-1289300261
+(setq clipetty-tmux-ssh-tty "echo \"SSH_TTY=$(tmux display-message -p '#{pane_tty}')\"")
+
+(add-to-list 'default-frame-alist '(undecorated-round . t))
+
+(setq doom-modeline-icon nil)
+
+;; (setq centaur-tabs-set-bar 'under)
+;; ;; Note: If you're not using Spacmeacs, in order for the underline to display
+;; ;; correctly you must add the following line:
+;; (setq x-underline-at-descent-line t)
+
+(setq centaur-tabs-set-bar 'over)
