@@ -1,0 +1,4 @@
+inherits = "gruvbox"
+
+# "ui.virtual.inlay-hint" = { fg = "gray0", modifiers = ["italic"] }
+"ui.virtual.inlay-hint" = { modifiers = ["italic"] }

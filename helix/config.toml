@@ -1,0 +1,21 @@
+theme = "my_theme"
+
+[editor]
+cursorline = true
+color-modes = true
+bufferline = "multiple"
+line-number = "relative"
+soft-wrap.enable = true
+# gutters = ["diagnostics", "diff"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal.space]
+space.q = ":quit"
+space.s = ":w"
+
+[editor.lsp]
+display-inlay-hints = true
