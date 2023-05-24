@@ -40,7 +40,7 @@ yabai -m rule --add title="^Find My$" manage=off
 # mouse selects focus (without clicking)
 # yabai -m config focus_follows_mouse autoraise
 # move the mouse to the center of a newly focused window
-yabai -m config mouse_follows_focus on
+# yabai -m config mouse_follows_focus on
 
 ### Simple-Bar Settings
 yabai -m config external_bar all:0:30

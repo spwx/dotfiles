@@ -64,7 +64,8 @@
 
 (setq projectile-project-search-path '("~/projects/"))
 
-(setq org-startup-folded t)
+(use-package! org
+  :config (setq org-startup-folded t))
 
 (setq ispell-personal-dictionary "~/.aspell.en.pws")
 
@@ -81,8 +82,8 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
-        doom-big-font (font-spec :family "JetBrains Mono" :size 36))
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
   (setq-default line-spacing 0.1)
 
@@ -165,7 +166,8 @@
 ;; https://github.com/spudlyo/clipetty/issues/9#issuecomment-1289300261
 (setq clipetty-tmux-ssh-tty "echo \"SSH_TTY=$(tmux display-message -p '#{pane_tty}')\"")
 
-(add-to-list 'default-frame-alist '(undecorated-round . t))
+;; for rounded borders with emacs-plus 29 and above
+;; (add-to-list 'default-frame-alist '(undecorated-round . t))
 
 (setq doom-modeline-icon nil)
 

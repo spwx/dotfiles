@@ -40,5 +40,5 @@ if status --is-interactive
   set -gx LANGUAGE en_US.UTF-8
 
   alias e='emacsclient -n -a ""'
-  source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
+  # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
 end
