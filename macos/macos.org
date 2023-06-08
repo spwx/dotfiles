@@ -1,0 +1,231 @@
+#+TITLE:  MacOS Setup
+#+OPTIONS: num:nil toc:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+* System Settings
+1. Trackpad -> Tap to click
+2. Accessibility -> Pointer Control -> Trackpad Options -> Use trackpad for
+   dragging (Without Drag Lock)
+3. Accessibility -> Spoken Content -> System voice -> Siri (Voice 1)
+
+* Download
+- Firefox
+- Iterm2
+
+* Homebrew
+** Install
+- follow these instructions: https://brew.sh
+
+** Disable Analytics
+#+begin_src sh
+brew analytics off
+#+end_src
+
+* Get Dot Files
+** Create An SSH Key
+- if you leave the passphrase blank you don't need to add it to the keychain
+
+ #+begin_src
+ ssh-keygen -t ed25519 -C "your_email@example.com"
+ #+end_src
+
+** Add SSH Key To The Apple Key Chain
+- skip this if the key has no passphrase
+- this simplifies SSH Agent Forwarding when there is a passphrase
+
+  #+begin_src bash
+ssh-add --apple-use-keychain ~/.ssh/$private_key
+  #+end_src
+
+** Add Key To Github
+- copy the public key: =pbcopy < ~/.ssh/id_ed25519.pub=
+- add it to github: Settings -> SSH and GPG keys -> New SSH Key
+- test with: =ssh -T git@github.com=
+
+** Clone Github
+#+begin_src bash
+git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
+#+end_src
+
+* Emacs
+** Install Emacs
+https://github.com/d12frosted/homebrew-emacs-plus
+
+** Install Dependencies For Doom Emacs
+- =cmake= for =vterm=
+
+#+begin_src shell
+brew install ripgrep fd aspell cmake
+#+end_src
+
+** Install Doom Emacs
+https://github.com/doomemacs/doomemacs
+
+* iTerm
+** Install JetBrains Mono Nerd Font
+#+begin_src shell
+brew install --cask homebrew/cask-fonts/font-jetbrains-mono-nerd-font
+#+end_src
+
+** Change Line Spacing
+- Preferences -> Profiles -> Text -> =n/n= set to 105
+** Use CSI u Mode
+- Preferences -> Profiles -> Keys -> Report modifiers using CSI u
+** Fix Meta Key
+Profiles -> Keys -> Left Option Key -> Esc+
+
+** Fix =S+Space=
+1. go to Preferences -> Profiles -> Keys
+2. under "Key Mappings" click the =+=
+3. enter the key combination =S+space=
+4. from the drop down select "Send Text"
+5. enter a space
+
+** Fix =S+Backsapce=
+1. go to Preferences -> Profiles -> Keys
+2. under "Key Mappings" click the =+=
+3. enter the key combination =S+backspace=
+4. from the drop down select "Send ^? Backspace"
+** Hide Scroll Bar
+- Preferences -> Appearance -> Windows -> Hide scrollbars
+
+** Use Gruvbox Colors
+- download =gruvbox-dark.iterm=
+  https://github.com/morhetz/gruvbox-contrib/blob/master/iterm2/gruvbox-dark.itermcolors
+
+- Preferences -> Profiles -> Colors -> Color Presets... -> Import
+
+** Allow OSC52 Copy and Paste
+- Preferences -> General -> Selection ->
+  "Applications in terminal may access clipboard"
+
+** Hide Title Bar
+- Preferences > Profiles > Window > Style > No Title Bar
+
+** Open New Window from CLI
+- save this script to =$HOME/.local/bin/open_iterm2.sh=
+- add the previous directory to your path
+
+#+begin_src shell
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Detects if iTerm2 is running
+if ! pgrep -f "iTerm" > /dev/null; then
+    open -a "/Applications/iTerm.app"
+else
+    # Create a new window
+    if ! osascript -e 'tell application "iTerm2" to create window with default profile' > /dev/null; then
+        # Get pids for any app with "iTerm" and kill
+        for i in $(pgrep -f "iTerm"); do kill -15 "$i"; done
+        open  -a "/Applications/iTerm.app"
+    fi
+fi
+#+end_src
+
+** Better Keybindings
+1. Turn on CSI u Mode
+
+2. edit =~/.tmux.conf=
+   #+begin_src conf
+set -s extended-keys on
+   #+end_src
+
+3. restart tmux
+   #+begin_src sh
+   tmux kill-server
+   #+end_src
+
+4. applications need to tell tmux to use CSI u mode. So in emacs config:
+   #+begin_src elisp
+(when (display-graphic-p)
+    (send-string-to-terminal "\033[>4;1m")
+   #+end_src
+
+* Rust
+** Install ~Rustup~ And Rust
+- https://rustup.rs
+
+** Install Rust Analyzer
+- run with ~rusutp run rust-analyzer~
+- find the binary with ~rusutp which rust-analyzer~
+
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
+
+* Fish
+** Configure
+#+begin_src bash
+~/.dotfiles/cli/setup.sh
+#+end_src
+
+** Get Dependencies
+#+begin_src bash
+brew install starship vivid exa bat fzf
+#+end_src
+
+** Install
+#+begin_src bash
+sh ~/.dotfiles/fish/setup.sh
+brew install fish
+echo "/opt/homebrew/bin/fish" | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/fish
+#+end_src
+
+** Fisher
+- Follow the instructions here: https://github.com/jorgebucaran/fisher
+
+** FZF Search History
+#+BEGIN_SRC sh
+brew install fzf fd bat
+fisher install PatrickF1/fzf.fish
+#+END_SRC
+
+* Window Management
+** Install karabiner-elements
+#+begin_src shell
+brew install karabiner-elements
+#+end_src
+
+- start karabiner-elements -> right click in the dock -> open at login
+
+** Install Yabai
+#+begin_src shell
+brew install koekeishiya/formulae/yabai
+brew services start yabai
+#+end_src
+
+** Install skhd
+#+begin_src shell
+brew install koekeishiya/formulae/skhd
+brew services start skhd
+#+end_src
+
+** Simple-Bar
+*** Install Ubersicht
+#+begin_src shell
+brew install --cask ubersicht
+#+end_src
+
+*** Install Simple-Bar
+https://github.com/Jean-Tinland/simple-bar
+
+#+begin_src bash
+ln -s /opt/homebrew/bin/yabai /usr/local/bin/yabai
+git clone https://github.com/Jean-Tinland/simple-bar $HOME/Library/Application\ Support/Übersicht/widgets/simple-bar
+#+end_src
+
+** Workspaces
+- =ctrl-uparrow= and add 10 spaces
+- System Settings -> Keyboard -> Keyboard Shortcuts -> Mission Control ->
+  Mission Control
+
+* Parallels
+- Release Input shortcut can be changed in OS X System Preferences > Keyboard >
+  Keyboard Shortcuts > Application Shortcuts. Click + (plus), select Parallels
+  Desktop application, Menu title is "Release Input" (without quotes).
+
+* Cross Compilation Tools
+https://github.com/messense/homebrew-macos-cross-toolchains
+
