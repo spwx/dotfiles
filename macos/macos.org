@@ -90,6 +90,10 @@ brew install font-victor-mono-nerd-font
 ** Allow OSC52 Copy and Paste
 - Preferences -> General -> Selection ->
   "Applications in terminal may access clipboard"
+** Change Option To Esc+
+This enables =alt+.=
+
+Preferences -> Profiles -> Keys -> Left Option key: Esc+
 
 ** Hide Title Bar
 - Preferences > Profiles > Window > Style > No Title Bar
