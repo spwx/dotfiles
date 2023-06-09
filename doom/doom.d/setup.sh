@@ -6,7 +6,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 rm -rf ~/.doom.d
 
-printf "Linking configuration directory...\n"
+printf "Linking configuration directory... "
 ln -s "$SCRIPTPATH" "$HOME/.doom.d"
 
 printf "Done!\n"
