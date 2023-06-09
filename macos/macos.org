@@ -49,11 +49,9 @@ git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
 
 * Emacs
 ** Install Emacs
-https://github.com/d12frosted/homebrew-emacs-plus
+https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-macos
 
 ** Install Dependencies For Doom Emacs
-- =cmake= for =vterm=
-
 #+begin_src shell
 brew install ripgrep fd aspell cmake
 #+end_src
@@ -62,18 +60,11 @@ brew install ripgrep fd aspell cmake
 https://github.com/doomemacs/doomemacs
 
 * iTerm
-** Install JetBrains Mono Nerd Font
-#+begin_src shell
-brew install --cask homebrew/cask-fonts/font-jetbrains-mono-nerd-font
-#+end_src
-
-** Change Line Spacing
-- Preferences -> Profiles -> Text -> =n/n= set to 105
-** Use CSI u Mode
-- Preferences -> Profiles -> Keys -> Report modifiers using CSI u
-** Fix Meta Key
-Profiles -> Keys -> Left Option Key -> Esc+
-
+** Font
+*** Install Repo
+brew tap homebrew/cask-fonts
+*** Install Font
+brew install font-victor-mono-nerd-font
 ** Fix =S+Space=
 1. go to Preferences -> Profiles -> Keys
 2. under "Key Mappings" click the =+=
@@ -86,14 +77,15 @@ Profiles -> Keys -> Left Option Key -> Esc+
 2. under "Key Mappings" click the =+=
 3. enter the key combination =S+backspace=
 4. from the drop down select "Send ^? Backspace"
-** Hide Scroll Bar
-- Preferences -> Appearance -> Windows -> Hide scrollbars
 
 ** Use Gruvbox Colors
 - download =gruvbox-dark.iterm=
   https://github.com/morhetz/gruvbox-contrib/blob/master/iterm2/gruvbox-dark.itermcolors
 
 - Preferences -> Profiles -> Colors -> Color Presets... -> Import
+
+** Hide Scroll Bar
+- Preferences -> Appearance -> Windows -> Hide scrollbars
 
 ** Allow OSC52 Copy and Paste
 - Preferences -> General -> Selection ->
@@ -123,36 +115,16 @@ else
 fi
 #+end_src
 
-** Better Keybindings
-1. Turn on CSI u Mode
+** Use CSI u Mode
+*** Enable
+- Preferences -> Profiles -> Keys -> Report modifiers using CSI u
 
-2. edit =~/.tmux.conf=
-   #+begin_src conf
-set -s extended-keys on
-   #+end_src
-
-3. restart tmux
-   #+begin_src sh
-   tmux kill-server
-   #+end_src
-
-4. applications need to tell tmux to use CSI u mode. So in emacs config:
+*** Configure Emacs
+1. Tell tmux to use CSI u mode.
    #+begin_src elisp
-(when (display-graphic-p)
-    (send-string-to-terminal "\033[>4;1m")
+(when (getenv "TMUX")
+    (send-string-to-terminal "\033[>4;1m"))
    #+end_src
-
-* Rust
-** Install ~Rustup~ And Rust
-- https://rustup.rs
-
-** Install Rust Analyzer
-- run with ~rusutp run rust-analyzer~
-- find the binary with ~rusutp which rust-analyzer~
-
-#+begin_src bash
-rustup component add rust-analyzer
-#+end_src
 
 * Fish
 ** Configure
@@ -183,23 +155,21 @@ fisher install PatrickF1/fzf.fish
 #+END_SRC
 
 * Window Management
-** Install karabiner-elements
-#+begin_src shell
-brew install karabiner-elements
+** Run Setup Scripts
+#+begin_src bash
+sh ~/.dotfiles/macos/setup.sh
 #+end_src
 
-- start karabiner-elements -> right click in the dock -> open at login
-
-** Install Yabai
-#+begin_src shell
-brew install koekeishiya/formulae/yabai
-brew services start yabai
-#+end_src
-
-** Install skhd
-#+begin_src shell
+** Install Yabai & SKHD
+#+begin_src bash
 brew install koekeishiya/formulae/skhd
-brew services start skhd
+brew install koekeishiya/formulae/yabai
+#+end_src
+
+** Start And Grant Permissions
+#+begin_src bash
+yabai --start-server
+skhd --start-server
 #+end_src
 
 ** Simple-Bar
@@ -207,19 +177,30 @@ brew services start skhd
 #+begin_src shell
 brew install --cask ubersicht
 #+end_src
-
 *** Install Simple-Bar
 https://github.com/Jean-Tinland/simple-bar
 
 #+begin_src bash
-ln -s /opt/homebrew/bin/yabai /usr/local/bin/yabai
 git clone https://github.com/Jean-Tinland/simple-bar $HOME/Library/Application\ Support/Übersicht/widgets/simple-bar
 #+end_src
 
+_Change location of yabai in the settings_
 ** Workspaces
 - =ctrl-uparrow= and add 10 spaces
 - System Settings -> Keyboard -> Keyboard Shortcuts -> Mission Control ->
   Mission Control
+
+* Rust
+** Install ~Rustup~ And Rust
+- https://rustup.rs
+
+** Install Rust Analyzer
+- run with ~rusutp run rust-analyzer~
+- find the binary with ~rusutp which rust-analyzer~
+
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
 
 * Parallels
 - Release Input shortcut can be changed in OS X System Preferences > Keyboard >
