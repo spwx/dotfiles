@@ -149,10 +149,12 @@ rcmd + shift - 9 : yabai -m window --space  9; yabai -m space --focus 9
 rcmd + shift - 0 : yabai -m window --space  10; yabai -m space --focus 10
 
 # focus monitor
-cmd + ctrl + alt - left: yabai -m display --focus prev
-cmd + ctrl + alt - right: yabai -m display --focus next
 # ctrl + alt - z  : yabai -m display --focus prev
 # ctrl + alt - 3  : yabai -m display --focus 3
+cmd + ctrl + alt - left: yabai -m display --focus prev
+cmd + ctrl + alt - right: yabai -m display --focus next
+rcmd - left: yabai -m display --focus prev
+rcmd - right: yabai -m display --focus next
 
 # send window to monitor and follow focus
 # ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
@@ -209,3 +211,10 @@ ctrl + alt + cmd - return : $HOME/.local/bin/open_iterm2.sh
 ctrl + alt + cmd - o : open $HOME
 cmd + ctrl + alt - y : yabai -m space --mirror y-axis
 cmd + ctrl + alt - x : yabai -m space --mirror x-axis
+
+rcmd - m : open -a /System/Applications/Messages.app/
+rcmd - s : open -a /Applications/Signal.app/
+rcmd - return : $HOME/.dotfiles/utils/open_iterm2.sh
+rcmd - o : open $HOME
+rcmd - y : yabai -m space --mirror y-axis
+rcmd - x : yabai -m space --mirror x-axis
