@@ -3,6 +3,8 @@
 
 if status --is-interactive
   set fish_greeting
+  set -gx PATH "$HOME/.local/bin" $PATH
+  set -gx COLORTERM truecolor
 
   if test (uname) = Darwin
     if test -e /opt/homebrew/bin/brew
@@ -25,16 +27,14 @@ if status --is-interactive
   set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
 
   alias cat "bat"
-
   set -gx BAT_THEME "gruvbox-dark"
   set -gx BAT_STYLE "plain"
 
   set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
 
-  set -gx PATH "$HOME/.cargo/bin" $PATH
-  set -gx PATH "$HOME/.local/bin" $PATH
-
   alias ssh="env TERM=xterm-256color ssh"
+
+  set -gx PATH "$HOME/.cargo/bin" $PATH
   set -gx LC_ALL en_US.UTF-8
   set -gx LANG en_US.UTF-8
   set -gx LANGUAGE en_US.UTF-8
