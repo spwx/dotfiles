@@ -193,6 +193,9 @@ _Change location of yabai in the settings_
 - =ctrl-uparrow= and add 10 spaces
 - System Settings -> Keyboard -> Keyboard Shortcuts -> Mission Control ->
   Mission Control
+* Firefox
+Move Tab and URL bars to the bottom:
+https://github.com/Arty2/userstyles/blob/master/tabs_to_bottom.userchrome.css
 
 * Rust
 ** Install ~Rustup~ And Rust
