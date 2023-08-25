@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -101,17 +101,17 @@
 ;; (server-start)
 
 ;; GUI Settings
-(when (display-graphic-p)
-  (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 15))
-        ;; doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
+;; (when (display-graphic-p)
+;;   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+;;         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
-  ;; (setq-default line-spacing 0.1)
+;;   (setq-default line-spacing 0.1)
 
-  ;; (use-package! doom-modeline
-  ;;   :custom-face
-  ;;   (mode-line ((t (:height 0.85))))
-  ;;   (mode-line-inactive ((t (:height 0.85)))))
-)
+;;   ;; (use-package! doom-modeline
+;;   ;;   :custom-face
+;;   ;;   (mode-line ((t (:height 0.85))))
+;;   ;;   (mode-line-inactive ((t (:height 0.85)))))
+;; )
 
 ;; Terminal Settings
 (unless (display-graphic-p)
@@ -127,10 +127,10 @@
 
 (use-package! lsp-rust
   :config
-  (setq! lsp-rust-analyzer-max-inlay-hint-length 25
+  (setq! lsp-rust-analyzer-server-display-inlay-hints t
+         lsp-rust-analyzer-max-inlay-hint-length 25
          lsp-rust-analyzer-display-chaining-hints t
-         lsp-rust-analyzer-display-parameter-hints t
-         lsp-inlay-hint-enable t))
+         lsp-rust-analyzer-display-parameter-hints t))
 
 (map! :desc "Open external docs"
       :after rustic
@@ -197,3 +197,7 @@
 ;; (setq x-underline-at-descent-line t)
 
 ;; (setq centaur-tabs-set-bar 'over)
+
+;; Configuration A
+(setq org-fold-core-style 'overlays)
+(evil-select-search-module 'evil-search-module 'evil-search)

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 147
+personal_ws-1.1 en 157
 Analytics
 Ansible
 Autostart
@@ -58,10 +58,15 @@ agamotto
 allocator
 anomali
 async
+balancer
+balancers
 cloudtrail
+cloudwatch
 cmdlet
 contravariance
 crowdstrike
+databases
+datasync
 deadlisting
 deallocates
 deallocating
@@ -80,6 +85,7 @@ devices
 disassembler
 eBPF
 endian
+fargate
 filesystem
 flusso
 fuzzer
@@ -101,12 +107,15 @@ iterator's
 jumplist
 jupyter
 keylogging
+kinesis
 lemmatization
 libvterm
 macbook
 nameserver
 nasus
+opensearch
 pagefile
+parallelize
 parsers
 performant
 powersirt
@@ -131,6 +140,7 @@ struct
 subdirectory
 subtrait
 thier
+tiering
 tmux
 triaged
 tshark
