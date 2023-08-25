@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'nil)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -102,10 +102,10 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-        doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
+  (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 15))
+        ;; doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
-  (setq-default line-spacing 0.1)
+  ;; (setq-default line-spacing 0.1)
 
   ;; (use-package! doom-modeline
   ;;   :custom-face
@@ -127,10 +127,10 @@
 
 (use-package! lsp-rust
   :config
-  (setq! lsp-rust-analyzer-server-display-inlay-hints t
-         lsp-rust-analyzer-max-inlay-hint-length 25
+  (setq! lsp-rust-analyzer-max-inlay-hint-length 25
          lsp-rust-analyzer-display-chaining-hints t
-         lsp-rust-analyzer-display-parameter-hints t))
+         lsp-rust-analyzer-display-parameter-hints t
+         lsp-inlay-hint-enable t))
 
 (map! :desc "Open external docs"
       :after rustic
