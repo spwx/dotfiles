@@ -203,3 +203,8 @@
 ;; Configuration A
 (setq org-fold-core-style 'overlays)
 (evil-select-search-module 'evil-search-module 'evil-search)
+
+(map! :desc "org-meta-insert"
+      :after org
+      :map org-mode-map
+      "C-<return>" #'org-meta-return)
