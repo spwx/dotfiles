@@ -208,3 +208,11 @@
       :after org
       :map org-mode-map
       "C-<return>" #'org-meta-return)
+
+;; From: https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configurationhttps://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configuration
+;; I really dislike completion of words as I type prose (in code it’s OK), so I disable it in Org:
+(defun zz/adjust-org-company-backends ()
+  (remove-hook 'after-change-major-mode-hook '+company-init-backends-h)
+  (setq-local company-backends nil))
+(add-hook! org-mode (zz/adjust-org-company-backends))
+(after! org (setq org-hide-emphasis-markers t))
