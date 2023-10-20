@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'realtive)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -78,9 +78,14 @@
 (map! :desc "parent headline"
       :map org-mode-map
       :n
-      "z u" #'outline-up-heading)
+      "z u" 'org-up-element)
 
 (map! :n "U" 'undo-tree-visualize)
+
+(map! :n "g h" 'evil-first-non-blank)
+(map! :v "g h" 'evil-first-non-blank)
+(map! :n "g l" 'evil-end-of-line)
+(map! :v "g l" 'evil-end-of-line)
 
 (setq projectile-project-search-path '("~/projects/"))
 
@@ -157,17 +162,17 @@
 ;;
 ;; bring back the modeline when run from TTY
 (unless (display-graphic-p)
-(remove-hook! 'vterm-mode-hook 'hide-mode-line-mode))
+  (remove-hook! 'vterm-mode-hook 'hide-mode-line-mode))
 ;;
 ;; close window when vterm exits:
 ;; https://github.com/akermu/emacs-libvterm/issues/24#issuecomment-907660950
 (add-hook 'vterm-exit-functions
-(lambda (_a _b)
-(let* ((buffer (current-buffer))
-        (window (get-buffer-window buffer)))
-        (when (not (one-window-p))
-        (delete-window window))
-        (kill-buffer buffer))))
+          (lambda (_a _b)
+            (let* ((buffer (current-buffer))
+                   (window (get-buffer-window buffer)))
+              (when (not (one-window-p))
+                (delete-window window))
+              (kill-buffer buffer))))
 ;;
 ;; quick escape inside vterm
 (map! :desc "send escape to vterm"
@@ -193,16 +198,11 @@
 
 (setq doom-modeline-icon nil)
 
-;; (setq centaur-tabs-set-bar 'under)
-;; ;; Note: If you're not using Spacmeacs, in order for the underline to display
-;; ;; correctly you must add the following line:
-;; (setq x-underline-at-descent-line t)
 
-;; (setq centaur-tabs-set-bar 'over)
-
-;; Configuration A
+;; Fix evil-search in org-mode
+;; https://github.com/doomemacs/doomemacs/issues/6478
+;; https://github.com/emacs-evil/evil/issues/1630#issuecomment-1406169113
 (setq org-fold-core-style 'overlays)
-(evil-select-search-module 'evil-search-module 'evil-search)
 
 (map! :desc "org-meta-insert"
       :after org
