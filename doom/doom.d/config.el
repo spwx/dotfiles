@@ -107,7 +107,7 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 15)))
+  (setq doom-font (font-spec :family "VictorMono NF" :size 15)))
 ;; (when (display-graphic-p)
 ;;   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
 ;;         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
