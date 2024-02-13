@@ -78,9 +78,14 @@
 (map! :desc "parent headline"
       :map org-mode-map
       :n
-      "z u" #'org-up-element)
+      "z u" 'org-up-element)
 
 (map! :n "U" 'undo-tree-visualize)
+
+(map! :n "g h" 'evil-first-non-blank)
+(map! :v "g h" 'evil-first-non-blank)
+(map! :n "g l" 'evil-end-of-line)
+(map! :v "g l" 'evil-end-of-line)
 
 (setq projectile-project-search-path '("~/projects/"))
 
@@ -102,7 +107,7 @@
 
 ;; GUI Settings
 (when (display-graphic-p)
-  (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 15)))
+  (setq doom-font (font-spec :family "VictorMono NF" :size 15)))
 ;; (when (display-graphic-p)
 ;;   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
 ;;         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
@@ -186,15 +191,12 @@
 
 (setq doom-modeline-icon nil)
 
-;; (setq centaur-tabs-set-bar 'under)
-;; ;; Note: If you're not using Spacmeacs, in order for the underline to display
-;; ;; correctly you must add the following line:
-;; (setq x-underline-at-descent-line t)
 
-;; (setq centaur-tabs-set-bar 'over)
-
-;; Configuration A
+;; Fix evil-search in org-mode
+;; https://github.com/doomemacs/doomemacs/issues/6478
+;; https://github.com/emacs-evil/evil/issues/1630#issuecomment-1406169113
 (setq org-fold-core-style 'overlays)
+
 ;; (evil-select-search-module 'evil-search-module 'evil-search)
 
 ;; https://github.com/zerolfx/copilot.el/issues/193#issue-1936577081
@@ -240,3 +242,17 @@
            (org-mode . "* ")
            (text-mode . "### ")))
   (setq! gptel-default-mode 'org-mode))
+=======
+
+(map! :desc "org-meta-insert"
+      :after org
+      :map org-mode-map
+      "C-<return>" #'org-meta-return)
+
+;; From: https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configurationhttps://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configuration
+;; I really dislike completion of words as I type prose (in code it’s OK), so I disable it in Org:
+(defun zz/adjust-org-company-backends ()
+  (remove-hook 'after-change-major-mode-hook '+company-init-backends-h)
+  (setq-local company-backends nil))
+(add-hook! org-mode (zz/adjust-org-company-backends))
+(after! org (setq org-hide-emphasis-markers t))

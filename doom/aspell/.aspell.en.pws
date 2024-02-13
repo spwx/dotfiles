@@ -1,4 +1,5 @@
-personal_ws-1.1 en 159
+
+personal_ws-1.1 en 172
 Analytics
 Ansible
 Autostart
@@ -57,15 +58,19 @@ adaptors
 agamotto
 allocator
 anomali
+architected
 async
 balancer
 balancers
 changelog
+cloudfront
 cloudtrail
 cloudwatch
 cmdlet
+cognito
 contravariance
 crowdstrike
+cryptographically
 databases
 datasync
 deadlisting
@@ -86,9 +91,12 @@ devices
 disassembler
 eBPF
 endian
+eventbridge
+exfiltration
 fargate
 filesystem
 flusso
+fu
 fuzzer
 fuzzers
 geolocate
@@ -96,6 +104,8 @@ geolocation
 ghidra
 guardduty
 hashable
+hostclass
+hostclasses
 hostname
 iTerm
 iWatch
@@ -111,9 +121,11 @@ keylogging
 kinesis
 lemmatization
 libvterm
+lifecycle
 macbook
 nameserver
 nasus
+october
 opensearch
 pagefile
 parallelize
@@ -132,7 +144,9 @@ response
 runbooks
 rustaceans
 scrollbars
+securityhub
 semver
+serverless
 shellbags
 singleview
 splunkosaurus
@@ -140,6 +154,7 @@ spyhawk
 stateful
 struct
 subdirectory
+subnet
 subtrait
 thier
 tiering
@@ -147,6 +162,7 @@ tmux
 triaged
 tshark
 unallocated
+unencrypted
 untrusted
 uptime
 vectorization
