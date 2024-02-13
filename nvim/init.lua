@@ -32,6 +32,7 @@ local plugins = {
 require("lazy").setup(plugins, opts)
 
 vim.keymap.set('i', 'jk', [[<C-\><C-n>]]) -- no need to escape the '\'
-vim.keymap.set('n', 'gl', '$')
 vim.keymap.set('n', 'gh', '^')
+vim.keymap.set('n', 'gl', '$')
+
 

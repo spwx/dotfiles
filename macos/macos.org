@@ -53,11 +53,47 @@ https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-m
 
 ** Install Dependencies For Doom Emacs
 #+begin_src shell
-brew install ripgrep fd aspell cmake
+brew install ripgrep fd aspell cmake enchant hunspell
 #+end_src
 
 ** Install Doom Emacs
 https://github.com/doomemacs/doomemacs
+** Install Setup ~gptel~
+*** Create an =.authinfo= File
+Replace "TOKEN" with the OpenAI API Key
+
+#+begin_src auth
+machine api.openai.com login apikey password TOKEN
+#+end_src
+
+*** Encrypt The File With GPT
+In Emacs hit
+
+** Securely Store OpenAI API Key
+*** Install GPG
+#+begin_src shell
+brew install gpg
+#+end_src
+
+*** Create =~/.authinfo=
+Replace ~TOKEN~ with the OpenAI API Key.
+
+#+begin_src
+machine api.openai.com login apikey password TOKEN
+#+end_src
+
+*** Encrypt The File
+Use Emacs ~EasyPG Assistant~ to encrypt =~/.authinfo=.
+
+1. Press =M-x epa-encrypt-file RET=.
+2. Select =~/.authinfo=
+3. Select your own GPG key for the recipient
+3. Save the encrypted file as: =~/.authinfo.gpg=
+
+*** Remove =~/.authinfo=
+#+begin_src
+M-x delete-file RET ~/.authinfo RET
+#+end_src
 
 * iTerm
 ** Font
@@ -164,10 +200,12 @@ fisher install PatrickF1/fzf.fish
 sh ~/.dotfiles/macos/setup.sh
 #+end_src
 
-** Install Yabai & SKHD
+** Install Yabai, SKHD, and JankyBorders
 #+begin_src bash
 brew install koekeishiya/formulae/skhd
 brew install koekeishiya/formulae/yabai
+brew tap FelixKratz/formulae
+brew install borders
 #+end_src
 
 ** Start And Grant Permissions

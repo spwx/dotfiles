@@ -150,13 +150,6 @@
       :n
       "z z" #'reposition-window)
 
-;; (use-package! org-roam
-;;   :custom
-;;   (setq org-roam-directory "~/org/roam")
-;;   (org-roam-dailies-capture-templates
-;;    '(("d" "default" entry "* %<%I:%M %p>: %?"
-;;       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
-
 ;; emacs-libvterm
 ;; --------------
 ;;
@@ -203,6 +196,53 @@
 ;; https://github.com/doomemacs/doomemacs/issues/6478
 ;; https://github.com/emacs-evil/evil/issues/1630#issuecomment-1406169113
 (setq org-fold-core-style 'overlays)
+
+;; (evil-select-search-module 'evil-search-module 'evil-search)
+
+;; https://github.com/zerolfx/copilot.el/issues/193#issue-1936577081
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(after! (evil copilot)
+  ;; Define the custom function that either accepts the completion or does the default behavior
+  (defun my/copilot-tab-or-default ()
+    (interactive)
+    (if (and (bound-and-true-p copilot-mode)
+             ;; Add any other conditions to check for active copilot suggestions if necessary
+             )
+        (copilot-accept-completion)
+      (evil-insert 1))) ; Default action to insert a tab. Adjust as needed.
+
+  ;; Bind the custom function to <tab> in Evil's insert state
+  (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))
+
+;; Italicize comments
+;; (after! doom-themes
+;;   (setq doom-themes-enable-italic t)
+;;   (custom-set-faces!
+;;     '(font-lock-comment-face :slant italic)))
+
+(defun disable-company-auto-completion ()
+  (setq-local company-idle-delay nil))
+(add-hook! 'org-mode-hook #'disable-company-auto-completion)
+
+(setq treemacs-no-png-images t)
+
+(use-package! gptel
+  :config
+  (setq! gptel-model "gpt-4-1106-preview")
+  (setq! gptel-prompt-prefix-alist
+         '((markdown-mode . "### ")
+           (org-mode . "* ")
+           (text-mode . "### ")))
+  (setq! gptel-default-mode 'org-mode))
+=======
 
 (map! :desc "org-meta-insert"
       :after org
