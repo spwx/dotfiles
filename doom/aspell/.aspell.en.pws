@@ -1,4 +1,4 @@
-personal_ws-1.1 en 157
+personal_ws-1.1 en 159
 Analytics
 Ansible
 Autostart
@@ -60,6 +60,7 @@ anomali
 async
 balancer
 balancers
+changelog
 cloudtrail
 cloudwatch
 cmdlet
@@ -122,6 +123,7 @@ powersirt
 pre
 precisions
 prepend
+primality
 radix
 reparse
 resolvers

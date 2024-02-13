@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'realtive)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -78,7 +78,7 @@
 (map! :desc "parent headline"
       :map org-mode-map
       :n
-      "z u" #'outline-up-heading)
+      "z u" #'org-up-element)
 
 (map! :n "U" 'undo-tree-visualize)
 
@@ -145,29 +145,22 @@
       :n
       "z z" #'reposition-window)
 
-;; (use-package! org-roam
-;;   :custom
-;;   (setq org-roam-directory "~/org/roam")
-;;   (org-roam-dailies-capture-templates
-;;    '(("d" "default" entry "* %<%I:%M %p>: %?"
-;;       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
-
 ;; emacs-libvterm
 ;; --------------
 ;;
 ;; bring back the modeline when run from TTY
 (unless (display-graphic-p)
-(remove-hook! 'vterm-mode-hook 'hide-mode-line-mode))
+  (remove-hook! 'vterm-mode-hook 'hide-mode-line-mode))
 ;;
 ;; close window when vterm exits:
 ;; https://github.com/akermu/emacs-libvterm/issues/24#issuecomment-907660950
 (add-hook 'vterm-exit-functions
-(lambda (_a _b)
-(let* ((buffer (current-buffer))
-        (window (get-buffer-window buffer)))
-        (when (not (one-window-p))
-        (delete-window window))
-        (kill-buffer buffer))))
+          (lambda (_a _b)
+            (let* ((buffer (current-buffer))
+                   (window (get-buffer-window buffer)))
+              (when (not (one-window-p))
+                (delete-window window))
+              (kill-buffer buffer))))
 ;;
 ;; quick escape inside vterm
 (map! :desc "send escape to vterm"
@@ -202,4 +195,48 @@
 
 ;; Configuration A
 (setq org-fold-core-style 'overlays)
-(evil-select-search-module 'evil-search-module 'evil-search)
+;; (evil-select-search-module 'evil-search-module 'evil-search)
+
+;; https://github.com/zerolfx/copilot.el/issues/193#issue-1936577081
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(after! (evil copilot)
+  ;; Define the custom function that either accepts the completion or does the default behavior
+  (defun my/copilot-tab-or-default ()
+    (interactive)
+    (if (and (bound-and-true-p copilot-mode)
+             ;; Add any other conditions to check for active copilot suggestions if necessary
+             )
+        (copilot-accept-completion)
+      (evil-insert 1))) ; Default action to insert a tab. Adjust as needed.
+
+  ;; Bind the custom function to <tab> in Evil's insert state
+  (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))
+
+;; Italicize comments
+;; (after! doom-themes
+;;   (setq doom-themes-enable-italic t)
+;;   (custom-set-faces!
+;;     '(font-lock-comment-face :slant italic)))
+
+(defun disable-company-auto-completion ()
+  (setq-local company-idle-delay nil))
+(add-hook! 'org-mode-hook #'disable-company-auto-completion)
+
+(setq treemacs-no-png-images t)
+
+(use-package! gptel
+  :config
+  (setq! gptel-model "gpt-4-1106-preview")
+  (setq! gptel-prompt-prefix-alist
+         '((markdown-mode . "### ")
+           (org-mode . "* ")
+           (text-mode . "### ")))
+  (setq! gptel-default-mode 'org-mode))
