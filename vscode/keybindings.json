@@ -1,0 +1,39 @@
+[
+  {
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+  },
+  {
+    "key": "space w l",
+    "command": "workbench.action.navigateRight",
+    "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  },
+  {
+    "key": "space w h",
+    "command": "workbench.action.navigateLeft",
+    "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  },
+  {
+    "key": "space w j",
+    "command": "workbench.action.navigateDown",
+    "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  },
+  {
+    "key": "space w k",
+    "command": "workbench.action.navigateUp",
+    "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  },
+  {
+    "key": "space w c",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  }
+]
