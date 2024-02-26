@@ -242,7 +242,6 @@
            (org-mode . "* ")
            (text-mode . "### ")))
   (setq! gptel-default-mode 'org-mode))
-=======
 
 (map! :desc "org-meta-insert"
       :after org
