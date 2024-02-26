@@ -195,6 +195,9 @@ local window = {
     split = function()
         vscode.call("workbench.action.splitEditorDown")
     end,
+    close = function()
+        vscode.call("workbench.action.closeActiveEditor")
+    end,
 }
 
 vim.keymap.set({ 'n' }, "<leader>wk", window.up)
@@ -203,3 +206,4 @@ vim.keymap.set({ 'n' }, "<leader>wh", window.left)
 vim.keymap.set({ 'n' }, "<leader>wl", window.right)
 vim.keymap.set({ 'n' }, "<leader>wv", window.vSplit)
 vim.keymap.set({ 'n' }, "<leader>ws", window.split)
+vim.keymap.set({ 'n' }, "<leader>wc", window.close)
