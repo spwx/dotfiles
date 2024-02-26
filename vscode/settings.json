@@ -33,6 +33,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.stickyScroll.enabled": false,
-  "workbench.iconTheme": "material-icon-theme",
   "workbench.activityBar.location": "hidden"
 }
