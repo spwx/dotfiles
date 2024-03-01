@@ -33,5 +33,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.stickyScroll.enabled": false,
-  "workbench.activityBar.location": "hidden"
+  "workbench.activityBar.location": "hidden",
+  "workbench.iconTheme": "vscode-icons"
 }

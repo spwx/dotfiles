@@ -80,7 +80,10 @@ local file = {
     rename = function()
         vscode.call("workbench.files.action.showActiveFileInExplorer")
         vscode.call("renameFile")
-    end
+    end,
+    openRecents = function()
+        vscode.call("workbench.action.openRecent")
+    end,
 }
 
 vim.keymap.set({ 'n', 'v' }, "<leader>fs", file.save)
@@ -88,7 +91,8 @@ vim.keymap.set({ 'n', 'v' }, "<leader>fS", file.saveAll)
 vim.keymap.set({ 'n' }, "<leader>ff", file.format)
 vim.keymap.set({ 'n' }, "<leader>fn", file.new)
 vim.keymap.set({ 'n' }, "<leader>ft", file.showInExplorer)
-vim.keymap.set({ 'n' }, "<leader>fr", file.rename)
+vim.keymap.set({ 'n' }, "<leader>fR", file.rename)
+vim.keymap.set({ 'n' }, "<leader>fr", file.openRecents)
 
 local vscodeStuff = {
     showCommands = function()
