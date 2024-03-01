@@ -64,15 +64,12 @@ local file = {
         vscode.call("workbench.explorer.fileView.focus")
         vscode.call("explorer.newFile")
     end,
-
     save = function()
         vscode.call("workbench.action.files.save")
     end,
-
     saveAll = function()
         vscode.call("workbench.action.files.saveAll")
     end,
-
     format = function()
         vscode.call("editor.action.formatDocument")
     end,
