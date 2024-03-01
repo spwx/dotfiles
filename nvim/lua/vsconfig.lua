@@ -73,7 +73,6 @@ local file = {
     format = function()
         vscode.call("editor.action.formatDocument")
     end,
-
     showInExplorer = function()
         vscode.call("workbench.files.action.showActiveFileInExplorer")
     end,
