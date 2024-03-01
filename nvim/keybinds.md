@@ -75,11 +75,12 @@ The default leader is Space.
 
 ## File
 
-| Keys         | Function              |
-| ------------ | --------------------- |
-| `<leader>fs` | Save file             |
-| `<leader>fS` | Save all files        |
-| `<leader>fr` | Rename file           |
-| `<leader>fn` | New file              |
-| `<leader>ff` | Format file           |
-| `<leader>ft` | Show file in explorer |
+| Keys         | Function                |
+| ------------ | ----------------------- |
+| `<leader>fs` | Save file               |
+| `<leader>fS` | Save all files          |
+| `<leader>fr` | Open recent file/folder |
+| `<leader>fn` | New file                |
+| `<leader>fR` | Rename file             |
+| `<leader>ff` | Format file             |
+| `<leader>ft` | Show file in explorer   |

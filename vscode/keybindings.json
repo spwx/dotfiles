@@ -35,5 +35,10 @@
     "key": "space w c",
     "command": "workbench.action.closeActiveEditor",
     "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
+  },
+  {
+    "key": "tab",
+    "command": "list.toggleExpand",
+    "when": "!editorTextFocus && !inputFocus"
   }
 ]
