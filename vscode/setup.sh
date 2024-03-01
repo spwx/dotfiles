@@ -15,5 +15,7 @@ mkdir -p $DESTINATION
 printf "Linking configuration files...\n"
 ln -sf "$SCRIPTPATH/keybindings.json" "$DESTINATION/keybindings.json"
 ln -sf "$SCRIPTPATH/settings.json" "$DESTINATION/settings.json"
+rm -rf $DESTINATION/snippets
+ln -sf "$SCRIPTPATH/snippets" "$DESTINATION/snippets"
 
 printf "Done!\n"
