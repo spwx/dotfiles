@@ -56,6 +56,7 @@ vim.keymap.set({ 'n', 'v' }, 'go', misc.smartSelectOut)
 vim.keymap.set({ 'n', 'v' }, 'gi', misc.smartSelectIn)
 
 vim.keymap.set({ 'n', 'x' }, 'z=', misc.quickfix)
+vim.keymap.set({ 'n', 'x' }, 'z ', misc.quickfix)
 vim.keymap.set({ 'n', 'v' }, 'gR', misc.rename)
 
 -- file
