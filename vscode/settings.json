@@ -34,5 +34,8 @@
   },
   "editor.stickyScroll.enabled": false,
   "workbench.activityBar.location": "hidden",
-  "workbench.iconTheme": "vscode-icons"
+  "workbench.iconTheme": "vscode-icons",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
