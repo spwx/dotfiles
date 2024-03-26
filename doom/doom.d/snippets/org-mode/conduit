@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Conduit Link
+# key: con
+# --
+[[https://conduit.security.a2z.com/accounts/aws/`yas-selected-text`/attributes][`yas-selected-text`]]
