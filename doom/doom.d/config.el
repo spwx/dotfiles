@@ -23,6 +23,8 @@
 ;;
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "VictorMono Nerd Font" :size 20 :weight 'medium))
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -92,44 +94,44 @@
 (use-package! org
   :config (setq org-startup-folded t))
 
-(setq ispell-personal-dictionary "~/.aspell.en.pws")
+;; (setq ispell-personal-dictionary "~/.aspell.en.pws")
 
 (setq confirm-kill-emacs nil)
 
-(setq evil-snipe-scope 'whole-buffer)
+;; (setq evil-snipe-scope 'whole-buffer)
 
 (setq deft-directory "~/org")
 
-(after! persp-mode
-  (setq persp-emacsclient-init-frame-behaviour-override "main"))
+;; (after! persp-mode
+;;   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
-;; (server-start)
+;; ;; (server-start)
 
-;; GUI Settings
-(when (display-graphic-p)
-  (setq doom-font (font-spec :family "VictorMono NF" :size 15)))
+;; ;; GUI Settings
 ;; (when (display-graphic-p)
-;;   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-;;         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
+;;   (setq doom-font (font-spec :family "VictorMono NF" :size 15)))
+;; ;; (when (display-graphic-p)
+;; ;;   (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+;; ;;         doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 36))
 
-;;   (setq-default line-spacing 0.1)
+;; ;;   (setq-default line-spacing 0.1)
 
-;;   ;; (use-package! doom-modeline
-;;   ;;   :custom-face
-;;   ;;   (mode-line ((t (:height 0.85))))
-;;   ;;   (mode-line-inactive ((t (:height 0.85)))))
-;; )
+;; ;;   ;; (use-package! doom-modeline
+;; ;;   ;;   :custom-face
+;; ;;   ;;   (mode-line ((t (:height 0.85))))
+;; ;;   ;;   (mode-line-inactive ((t (:height 0.85)))))
+;; ;; )
 
-;; Terminal Settings
-(unless (display-graphic-p)
-  ;; better touch scroll on iPad
-  (xterm-mouse-mode t)
-  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
-  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+;; ;; Terminal Settings
+;; (unless (display-graphic-p)
+;;   ;; better touch scroll on iPad
+;;   (xterm-mouse-mode t)
+;;   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+;;   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
 
-  ;; tell tmux to enable CSI u mode
-  (when (getenv "TMUX")
-    (send-string-to-terminal "\033[>4;1m")))
+;;   ;; tell tmux to enable CSI u mode
+;;   (when (getenv "TMUX")
+;;     (send-string-to-terminal "\033[>4;1m")))
 
 
 (use-package! lsp-rust
@@ -139,11 +141,11 @@
          lsp-rust-analyzer-display-chaining-hints t
          lsp-rust-analyzer-display-parameter-hints t))
 
-(map! :desc "Open external docs"
-      :after rustic
-      :map rustic-mode-map
-      :n
-      "SPC m d" #'lsp-rust-analyzer-open-external-docs)
+;; (map! :desc "Open external docs"
+;;       :after rustic
+;;       :map rustic-mode-map
+;;       :n
+;;       "SPC m d" #'lsp-rust-analyzer-open-external-docs)
 
 (map! :desc "reposition to code"
       :map rustic-mode-map
@@ -173,85 +175,110 @@
       :map vterm-mode-map
       "C-c <escape>" #'vterm-send-escape)
 
-;; Fix tmux cursor shaping. Found here:
-;; https://github.com/7696122/evil-terminal-cursor-changer/issues/29
-(advice-add 'etcc--make-tmux-seq :override #'identity)
+;; ;; Fix tmux cursor shaping. Found here:
+;; ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/29
+;; (advice-add 'etcc--make-tmux-seq :override #'identity)
 
-;; org-store-link uses a headline's ID (if it has one)
-;; org-insert-last-stored-link
-(after! org
-  (setq org-id-link-to-org-use-id 'use-existing))
+;; ;; org-store-link uses a headline's ID (if it has one)
+;; ;; org-insert-last-stored-link
+;; (after! org
+;;   (setq org-id-link-to-org-use-id 'use-existing))
 
-;; make OSC-52 work inside of mosh
-;; https://github.com/spudlyo/clipetty/issues/9#issuecomment-1289300261
-(setq clipetty-tmux-ssh-tty "echo \"SSH_TTY=$(tmux display-message -p '#{pane_tty}')\"")
+;; ;; make OSC-52 work inside of mosh
+;; ;; https://github.com/spudlyo/clipetty/issues/9#issuecomment-1289300261
+;; (setq clipetty-tmux-ssh-tty "echo \"SSH_TTY=$(tmux display-message -p '#{pane_tty}')\"")
 
-;; for rounded borders with emacs-plus 29 and above
-;; (add-to-list 'default-frame-alist '(undecorated-round . t))
+;; ;; for rounded borders with emacs-plus 29 and above
+;; ;; (add-to-list 'default-frame-alist '(undecorated-round . t))
 
-(setq doom-modeline-icon nil)
+;; (setq doom-modeline-icon nil)
 
 
-;; Fix evil-search in org-mode
-;; https://github.com/doomemacs/doomemacs/issues/6478
-;; https://github.com/emacs-evil/evil/issues/1630#issuecomment-1406169113
-(setq org-fold-core-style 'overlays)
+;; ;; Fix evil-search in org-mode
+;; ;; https://github.com/doomemacs/doomemacs/issues/6478
+;; ;; https://github.com/emacs-evil/evil/issues/1630#issuecomment-1406169113
+;; (setq org-fold-core-style 'overlays)
 
-;; (evil-select-search-module 'evil-search-module 'evil-search)
+;; ;; (evil-select-search-module 'evil-search-module 'evil-search)
 
-;; https://github.com/zerolfx/copilot.el/issues/193#issue-1936577081
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+;; ;; https://github.com/zerolfx/copilot.el/issues/193#issue-1936577081
+;; ;; accept completion from copilot and fallback to company
+;; (use-package! copilot
+;;   :hook (prog-mode . copilot-mode)
+;;   :bind (:map copilot-completion-map
+;;               ("<tab>" . 'copilot-accept-completion)
+;;               ("TAB" . 'copilot-accept-completion)
+;;               ("C-TAB" . 'copilot-accept-completion-by-word)
+;;               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
-(after! (evil copilot)
-  ;; Define the custom function that either accepts the completion or does the default behavior
-  (defun my/copilot-tab-or-default ()
-    (interactive)
-    (if (and (bound-and-true-p copilot-mode)
-             ;; Add any other conditions to check for active copilot suggestions if necessary
-             )
-        (copilot-accept-completion)
-      (evil-insert 1))) ; Default action to insert a tab. Adjust as needed.
+;; (after! (evil copilot)
+;;   ;; Define the custom function that either accepts the completion or does the default behavior
+;;   (defun my/copilot-tab-or-default ()
+;;     (interactive)
+;;     (if (and (bound-and-true-p copilot-mode)
+;;              ;; Add any other conditions to check for active copilot suggestions if necessary
+;;              )
+;;         (copilot-accept-completion)
+;;       (evil-insert 1))) ; Default action to insert a tab. Adjust as needed.
 
-  ;; Bind the custom function to <tab> in Evil's insert state
-  (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))
+;;   ;; Bind the custom function to <tab> in Evil's insert state
+;;   (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))
 
-;; Italicize comments
-;; (after! doom-themes
-;;   (setq doom-themes-enable-italic t)
-;;   (custom-set-faces!
-;;     '(font-lock-comment-face :slant italic)))
+;; ;; Italicize comments
+;; ;; (after! doom-themes
+;; ;;   (setq doom-themes-enable-italic t)
+;; ;;   (custom-set-faces!
+;; ;;     '(font-lock-comment-face :slant italic)))
 
-(defun disable-company-auto-completion ()
-  (setq-local company-idle-delay nil))
-(add-hook! 'org-mode-hook #'disable-company-auto-completion)
+;; (defun disable-company-auto-completion ()
+;;   (setq-local company-idle-delay nil))
+;; (add-hook! 'org-mode-hook #'disable-company-auto-completion)
 
-(setq treemacs-no-png-images t)
+;; (setq treemacs-no-png-images t)
 
-(use-package! gptel
-  :config
-  (setq! gptel-model "gpt-4-1106-preview")
-  (setq! gptel-prompt-prefix-alist
-         '((markdown-mode . "### ")
-           (org-mode . "* ")
-           (text-mode . "### ")))
-  (setq! gptel-default-mode 'org-mode))
+;; ;; (use-package! gptel
+;; ;;   :config
+;; ;;   (setq! gptel-model "gpt-4-1106-preview")
+;; ;;   (setq! gptel-prompt-prefix-alist
+;; ;;          '((markdown-mode . "### ")
+;; ;;            (org-mode . "* ")
+;; ;;            (text-mode . "### ")))
+;; ;;   (setq! gptel-default-mode 'org-mode))
 
-(map! :desc "org-meta-insert"
-      :after org
+;; ;; (map! :desc "org-meta-insert"
+;; ;;       :after org
+;; ;;       :map org-mode-map
+;; ;;       "C-<return>" #'org-meta-return)
+
+;; ;; From: https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configurationhttps://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configuration
+;; ;; I really dislike completion of words as I type prose (in code it’s OK), so I disable it in Org:
+;; (defun zz/adjust-org-company-backends ()
+;;   (remove-hook 'after-change-major-mode-hook '+company-init-backends-h)
+;;   (setq-local company-backends nil))
+;; (add-hook! org-mode (zz/adjust-org-company-backends))
+;; (after! org (setq org-hide-emphasis-markers t))
+
+;; ;; (defun org-to-clipboard-as-markdown ()
+;; ;;   (interactive)
+;; ;;   (let ((org-export-with-toc nil))
+;; ;;     (with-current-buffer (org-md-export-as-markdown)
+;; ;;       (clipboard-kill-region (point-min) (point-max))
+;; ;;       (kill-buffer))))
+
+(defun org-to-gfm-to-clipboard ()
+  "Convert the current buffer's content from Org toGFM and copy to clipboard."
+  (interactive)
+  (let* ((org-content (buffer-string))
+         (temp-file (make-temp-file "org-to-gfm")))
+    (with-temp-file temp-file
+      (insert org-content))
+    (shell-command (format "pandoc -f org -t gfm --wrap=none %s | sed -E 's|^<https://(.*)>$|![](https://\\1)|' | pbcopy" temp-file))
+    (delete-file temp-file)
+    (message "Org content converted to GFM and copied to clipboard.")))
+(map! :desc "copy to gfm"
       :map org-mode-map
-      "C-<return>" #'org-meta-return)
+      :n
+      "SPC m z" 'org-to-gfm-to-clipboard)
 
-;; From: https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configurationhttps://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/#general-org-configuration
-;; I really dislike completion of words as I type prose (in code it’s OK), so I disable it in Org:
-(defun zz/adjust-org-company-backends ()
-  (remove-hook 'after-change-major-mode-hook '+company-init-backends-h)
-  (setq-local company-backends nil))
-(add-hook! org-mode (zz/adjust-org-company-backends))
-(after! org (setq org-hide-emphasis-markers t))
+
+(add-to-list 'default-frame-alist '(undecorated-round . t))

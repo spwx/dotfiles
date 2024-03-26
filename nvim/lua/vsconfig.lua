@@ -50,6 +50,9 @@ local misc = {
     rename = function()
         vscode.call("editor.action.rename")
     end,
+    openLink = function()
+        vscode.call("editor.action.openLink")
+    end,
 }
 
 vim.keymap.set({ 'n', 'v' }, 'go', misc.smartSelectOut)
@@ -58,6 +61,7 @@ vim.keymap.set({ 'n', 'v' }, 'gi', misc.smartSelectIn)
 vim.keymap.set({ 'n', 'x' }, 'z=', misc.quickfix)
 vim.keymap.set({ 'n', 'x' }, 'z ', misc.quickfix)
 vim.keymap.set({ 'n', 'v' }, 'gR', misc.rename)
+vim.keymap.set({ 'n', 'v' }, 'gx', misc.openLink)
 
 -- file
 local file = {
