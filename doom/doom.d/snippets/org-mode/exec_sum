@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: Executive Summary
+# key: es
+# condition: t
+# --
+* Issue Summary:
+<3-5 sentences or bullets summarizing the issue>
+
+* Discovered Via:
+<how was this found ? e.g. automation, VRP report>
+
+* Involved Services:
+<list all services, devices, teams affected>
+
+* Response Plan:
+*Underway Action Items:*
+- <bulleted list of tasks / actions being taken with an Owner and ECD>
+
+* Completed Action Items:
+- <bulleted list of tasks/actions to be taken with an Owner and ECD>
