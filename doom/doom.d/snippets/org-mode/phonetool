@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: PhoneTool
-# key: pt
-# --
-[[https://phonetool.amazon.com/users/`yas-selected-text`][`yas-selected-text`@]]
