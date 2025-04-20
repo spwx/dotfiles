@@ -1,12 +1,11 @@
-theme = "my_theme"
+theme = "tokyonight"
 
-[editor]
+ [editor]
 cursorline = true
 color-modes = true
 bufferline = "multiple"
-line-number = "relative"
 soft-wrap.enable = true
-# gutters = ["diagnostics", "diff"]
+gutters = ["diff", "diagnostics", "spacer"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -19,3 +18,10 @@ space.s = ":w"
 
 [editor.lsp]
 display-inlay-hints = true
+
+[keys.normal]
+Z = { Q = ":quit!", Z = ":write-quit!" }
+
+[editor.statusline]
+right = ["diagnostics", "selections", "position", "position-percentage"]
+

@@ -1,7 +1,9 @@
 {
   "remote.SSH.useLocalServer": false,
   "remote.SSH.remotePlatform": {
-    "10.211.55.5": "linux"
+    "10.211.55.5": "linux",
+    "10.211.55.6": "linux",
+    "kali": "linux"
   },
   "editor.fontFamily": "VictorMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontSize": 15,
@@ -37,5 +39,18 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.activityBar.location": "bottom"
+  "workbench.activityBar.location": "bottom",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "rust": false
+  }
 }

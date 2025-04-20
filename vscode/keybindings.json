@@ -1,17 +1,5 @@
 [
   {
-    "command": "vscode-neovim.compositeEscape1",
-    "key": "j",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "j"
-  },
-  {
-    "command": "vscode-neovim.compositeEscape2",
-    "key": "k",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "k"
-  },
-  {
     "key": "space w l",
     "command": "workbench.action.navigateRight",
     "when": "!inputFocus && !editorTextFocus && !terminalFocus && neovim.mode != 'cmdline'"
@@ -40,5 +28,15 @@
     "key": "tab",
     "command": "list.toggleExpand",
     "when": "!editorTextFocus && !inputFocus"
+  },
+  {
+    "key": "<",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && (neovim.mode == 'normal' || neovim.mode == 'visual')"
+  },
+  {
+    "key": ">",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && (neovim.mode == 'normal' || neovim.mode == 'visual')"
   }
 ]

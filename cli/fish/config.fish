@@ -44,4 +44,16 @@ if status --is-interactive
     starship init fish | source
 
     fzf --fish | source
+
+    alias kali="ssh parallels@10.211.55.6 -L 3390:192.168.178.10:3389"
+
+    set -gx INFOPATH /opt/homebrew/share/info/emacs $INFOPATH
 end
+
+# pnpm
+set -gx PNPM_HOME /Users/spwx/Library/pnpm
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+set -gx PATH "$HOME/go/bin" $PATH
