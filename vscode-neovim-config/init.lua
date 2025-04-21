@@ -5,7 +5,7 @@
 --    "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/vscode-neovim-config/init.lua",
 --
 -- To upadte the Neovim Plugins:
--- 1. NVIM_APPNAME=vscode-neovim nvim
+-- 1. NVIM_APPNAME=vscode-neovim-config nvim
 -- 2. In nvim run :Lazy
 
 -- Bootstrap lazy.nvim
