@@ -1,0 +1,89 @@
+* Firefox
+Download and install [[https://www.mozilla.org/en-US/firefox/new/][Firefox]]
+
+* Get Dot Files
+** Create An SSH Key
+- if you leave the passphrase blank you don't need to add it to the keychain
+
+#+begin_src shell
+ssh-keygen -t ed25519 -C "your_email@example.com"
+#+end_src
+
+** Add Password For The SSH Key To The Apple Key Chain
+- skip this if the key has no passphrase
+- this simplifies SSH Agent Forwarding when there is a passphrase
+
+  #+begin_src shell
+ssh-add --apple-use-keychain ~/.ssh/$private_key
+  #+end_src
+
+** Add Key To Github
+- copy the public key:
+  #+begin_src shell
+=pbcopy < ~/.ssh/id_ed25519.pub=
+  #+end_src
+- add it to GitHub: =Settings= -> =SSH and GPG keys= -> =New SSH Key=
+- test with:
+  #+begin_src shell
+ssh -T git@github.com
+  #+end_src
+
+** Clone Dotfiles
+#+begin_src shell
+git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
+#+end_src
+
+* Homebrew
+** Install
+- follow these instructions: https://brew.sh
+
+** Disable Analytics
+#+begin_src sh
+brew analytics off
+#+end_src
+
+* Install Packages
+#+BEGIN_SRC shell
+brew install \
+  fish \
+  vivid \
+  fzf \
+  starship \
+  tmux \
+  eza \
+  bat \
+  gitu \
+  fd \
+  rg \
+  nvim \
+  font-victor-mono-nerd-font \
+  iterm2 \
+  chatgpt \
+  raycast \
+  visual-studio-code
+#+END_SRC
+
+* iTerm2 Configuration
+- Set the font
+- Set =Profile= > =Keys= > =Left Option Key= to =ESC+=
+- Set =Profile= > =Keys= > =Right Option Key= to =ESC+=
+
+* GUI
+#+BEGIN_SRC sh
+brew tap FelixKratz/formulae
+brew install borders
+brew install --cask nikitabobko/tap/aerospace
+#+END_SRC
+
+* Rust
+** Install =Rustup= And Rust
+- https://rustup.rs
+
+** Install Rust Analyzer
+- run with =rusutp run rust-analyzer=
+- find the binary with =rusutp which rust-analyzer=
+
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
+
