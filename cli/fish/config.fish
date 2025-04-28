@@ -7,12 +7,12 @@ if status --is-interactive
     set -gx COLORTERM truecolor
 
     if test (uname) = Darwin
-        if test -e /opt/homebrew/bin/brew
-            eval (/opt/homebrew/bin/brew shellenv)
-        else if test -e /usr/local/bin/brew
-            eval (/usr/local/bin/brew shellenv)
-        end
+        eval (/opt/homebrew/bin/brew shellenv)
+        set -gx INFOPATH /opt/homebrew/share/info/emacs $INFOPATH
+        set -gx EDITOR /opt/homebrew/bin/nvim
     end
+
+    alias vi nvim
 
     if test -n "$SSH_TTY" || test -n "$ET_VERSION"
         if test -n "$TMUX"
@@ -23,8 +23,6 @@ if status --is-interactive
 
     alias ls eza
     set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
-
-    alias vi nvim
 
     alias cat bat
     set -gx BAT_THEME gruvbox-dark
@@ -47,7 +45,6 @@ if status --is-interactive
 
     alias kali="ssh parallels@10.211.55.6 -L 3390:192.168.178.10:3389"
 
-    set -gx INFOPATH /opt/homebrew/share/info/emacs $INFOPATH
 end
 
 # pnpm
