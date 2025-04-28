@@ -7,7 +7,14 @@ SCRIPTPATH="$(
   pwd -P
 )"
 
-rm -rf ~/.config/aerospace
+# Remove any older configuration
+printf "Removing any older configuration.\n"
+target="$HOME/.config/aerospace"
+if [ -L "$target" ]; then
+  unlink "$target"
+else
+  rm -rf "$target"
+fi
 
 printf "Linking configuration directory...\n"
 ln -s "$SCRIPTPATH" "$HOME/.config/aerospace"
