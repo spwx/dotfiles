@@ -43,13 +43,12 @@ if status --is-interactive
 
     fzf --fish | source
 
+    # pnpm
+    set -gx PNPM_HOME /Users/spwx/Library/pnpm
+    if not string match -q -- $PNPM_HOME $PATH
+        set -gx PATH "$PNPM_HOME" $PATH
+    end
+    # pnpm end
 
+    set -gx PATH "$HOME/go/bin" $PATH
 end
-
-# pnpm
-set -gx PNPM_HOME /Users/spwx/Library/pnpm
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-set -gx PATH "$HOME/go/bin" $PATH
