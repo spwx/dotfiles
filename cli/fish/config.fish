@@ -50,5 +50,7 @@ if status --is-interactive
     end
     # pnpm end
 
+    # More PATH Setup
     set -gx PATH "$HOME/go/bin" $PATH
+    set -gx PATH "$HOME/.toolbox/bin" $PATH
 end
