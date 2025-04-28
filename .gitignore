@@ -1,2 +1,11 @@
-/nvim/lazy-lock.json
-.vscode
+.vscodett.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+spell
+lazy-lock.json
+snippets/
