@@ -43,7 +43,6 @@ if status --is-interactive
 
     fzf --fish | source
 
-    alias kali="ssh parallels@10.211.55.6 -L 3390:192.168.178.10:3389"
 
 end
 
