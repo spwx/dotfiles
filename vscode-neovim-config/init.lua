@@ -55,8 +55,11 @@ require("lazy").setup({
 
 -- vscode setup
 if vim.g.vscode then -- VSCode extension
+	vim.g.mapleader = " "
+
 	vim.keymap.set({ "n", "v" }, "gl", "$")
 	vim.keymap.set({ "n", "v" }, "gh", "^")
+	vim.keymap.set({ "n", "v" }, "<leader>fs", ":w<CR>")
 
 	-- Needed for folding
 	vim.api.nvim_set_keymap("n", "j", "gj", { noremap = false, silent = true })
