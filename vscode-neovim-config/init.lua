@@ -88,4 +88,8 @@ if vim.g.vscode then -- VSCode extension
 	map("n", "ga", "editor.action.quickFix")
 	map("n", "gf", "editor.action.formatDocument")
 	map("n", "gR", "editor.action.rename")
+
+	-- Tabs
+	map("n", "H", "workbench.action.previousEditor")
+	map("n", "L", "workbench.action.nextEditor")
 end
