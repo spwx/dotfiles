@@ -1,3 +1,0 @@
-inherits = "gruvbox"
-
-"ui.virtual.inlay-hint" = { fg = "gray1", modifiers = ["italic"] }
