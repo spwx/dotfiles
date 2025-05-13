@@ -45,12 +45,12 @@ git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
 
 ** Disable Analytics
 #+begin_src sh
-brew analytics off
+/opt/homebrew/bin/brew analytics off
 #+end_src
 
 * Install Packages
 #+BEGIN_SRC shell
-brew install \
+/opt/homebrew/bin/brew install \
   fish \
   vivid \
   fzf \
