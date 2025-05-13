@@ -73,6 +73,14 @@ git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
 - Set =Profile= > =Keys= > =Left Option Key= to =ESC+=
 - Set =Profile= > =Keys= > =Right Option Key= to =ESC+=
 
+* Setup Fish
+Run the below and then log out and back in.
+
+#+BEGIN_SRC sh
+echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/fish
+#+END_SRC
+
 * Window Management
 #+BEGIN_SRC sh
 brew tap FelixKratz/formulae
