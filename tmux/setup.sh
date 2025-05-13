@@ -6,7 +6,7 @@ printf "Removing any older configuration.\n"
 target="$HOME/.tmux.conf"
 if [ -L "$target" ]; then
   unlink "$target"
-else
+elif [ -f "$target" ]; then
   rm "$target"
 fi
 

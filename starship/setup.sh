@@ -6,7 +6,7 @@ printf "Remove any older configuration.\n"
 target="$HOME/.config/starship.toml"
 if [ -L "$target" ]; then
   unlink "$target"
-else
+elif [ -f "$target" ]; then
   rm "$target"
 fi
 
