@@ -7,6 +7,9 @@ Download and install:
 - [[https://www.mozilla.org/en-US/firefox/new/][Firefox]]
 - [[https://iterm2.com/][iTerm2]]
 
+* Firefox Config
+- [[https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/toolbars_below_content_v2.css][Bars on Bottom]]
+
 * Get Dot Files
 ** Create An SSH Key
 - if you leave the passphrase blank you don't need to add it to the keychain
