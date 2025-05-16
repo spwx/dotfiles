@@ -17,6 +17,20 @@ return {
           },
         },
       },
+      {
+        "hamidi-dev/org-list.nvim",
+        dependencies = {
+          "tpope/vim-repeat", -- for repeatable actions with '.'
+        },
+        config = function()
+          require("org-list").setup({
+            mapping = {
+              key = "<leader>olt", -- nvim-orgmode users: you might want to change this to <leader>olt
+              desc = "Toggle: Cycle through list types",
+            },
+          })
+        end,
+      },
     },
     opts = {
       org_agenda_files = "~/org/**/*",
