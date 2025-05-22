@@ -41,10 +41,11 @@ return {
           org_open_at_point = "<CR>",
         },
       },
-      org_todo_keywords = { "TODO(t)", "PROG(p)", "WAIT(w)", "|", "DONE(d)" },
+      org_todo_keywords = { "TODO(t)", "PROG(p)", "WAIT(w)", "|", "DONE(d)", "STOP(s)" },
       org_todo_keyword_faces = {
         WAIT = ":foreground orange",
         PROG = ":foreground yellow",
+        STOP = ":foreground grey",
       },
     },
     init = function()
