@@ -35,6 +35,7 @@ return {
     opts = {
       org_agenda_files = "~/org/**/*",
       org_default_notes_file = "~/org/refile.org",
+      calendar_week_start_day = 0,
       org_startup_indented = true,
       mappings = {
         org = {
