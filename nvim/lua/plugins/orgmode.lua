@@ -39,6 +39,7 @@ return {
       org_agenda_files = "~/org/**/*",
       org_default_notes_file = "~/org/refile.org",
       calendar_week_start_day = 0,
+      win_split_mode = "vertical",
       org_startup_indented = true,
       mappings = {
         org = {
