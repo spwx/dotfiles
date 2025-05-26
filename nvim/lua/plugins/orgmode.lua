@@ -1,6 +1,9 @@
 return {
   {
     "nvim-orgmode/orgmode",
+    -- Next two line work around folding issues.
+    -- See: https://github.com/nvim-orgmode/orgmode/issues/975#issuecomment-2851182006
+    lazy = false,
     event = "VeryLazy",
     ft = { "org" },
     dependencies = {
