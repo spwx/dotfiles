@@ -9,6 +9,7 @@ Download and install:
 
 * Firefox Config
 - [[https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/toolbars_below_content_v2.css][Bars on Bottom]]
+- [[https://www.reddit.com/r/firefox/comments/1krulpu/browserurlbarscotchbonnetenableoverride_resets/][Hide the Search Dropdown]]
 
 * Get Dot Files
 ** Create An SSH Key
