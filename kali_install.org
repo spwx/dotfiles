@@ -2,6 +2,11 @@
 #+OPTIONS: num:nil toc:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+* Enable SSH
+#+BEGIN_SRC shell
+sudo systemctl enable --now ssh
+#+END_SRC
+
 * Get Dot Files
 #+BEGIN_SRC shell
 git clone https://github.com/spwx/dotfiles.git ~/.dotfiles
