@@ -1,0 +1,50 @@
+#+TITLE:  MacOS Setup
+#+OPTIONS: num:nil toc:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+* Get Dot Files
+#+BEGIN_SRC shell
+git clone https://github.com/spwx/dotfiles.git ~/.dotfiles
+#+END_SRC
+
+* Install Packages
+#+BEGIN_SRC shell
+sudo apt install \
+  fish \
+  vivid \
+  fzf \
+  starship \
+  tmux \
+  eza \
+  bat \
+  fd-find \
+  ripgrep \
+  neovim
+#+END_SRC
+
+* Configure The System
+#+BEGIN_SRC shell
+~/.dotfiles/fish/setup.sh
+~/.dotfiles/starship/setup.sh
+~/.dotfiles/tmux/setup.sh
+#+END_SRC
+
+* Setup Fish
+Run the below and then log out and back in.
+
+#+BEGIN_SRC sh
+chsh -s /usr/bin/fish
+#+END_SRC
+
+* Rust
+** Install =Rustup= And Rust
+- [[https://rustup.rs][Rustup Installation]]
+
+** Install Rust Analyzer
+- run with =rusutp run rust-analyzer=
+- find the binary with =rusutp which rust-analyzer=
+
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
+
