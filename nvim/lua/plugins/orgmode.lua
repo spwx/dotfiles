@@ -28,7 +28,7 @@ return {
         config = function()
           require("org-list").setup({
             mapping = {
-              key = "<leader>olt", -- nvim-orgmode users: you might want to change this to <leader>olt
+              key = "<leader>o-", -- nvim-orgmode users: you might want to change this to <leader>olt
               desc = "Toggle: Cycle through list types",
             },
           })
