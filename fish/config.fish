@@ -18,6 +18,11 @@ if status --is-interactive
 
     # Starship Setup
     starship init fish | source
+    # The below may not be necessary anymore
+    # if test "$TERM_PROGRAM" != "kiro"
+    #     starship init fish | source
+    # end
+
 
     # Neovim Setup
     if type -q nvim
@@ -53,9 +58,11 @@ if status --is-interactive
     set -gx LANG en_US.UTF-8
     set -gx LANGUAGE en_US.UTF-8
 
+    # Setup emacs
     alias e='emacsclient -n -a ""'
     # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
 
+    # Command history
     # fzf --fish | source
     # set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
     atuin init fish | source
@@ -71,16 +78,11 @@ if status --is-interactive
     set -gx PATH "$HOME/go/bin" $PATH
     set -gx PATH "$HOME/.toolbox/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
+
+    string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+
+
+    # bun
+    set --export BUN_INSTALL "$HOME/.bun"
+    set --export PATH $BUN_INSTALL/bin $PATH
 end
-
-# The below may not be necessary anymore due to the line below this block
-# if test "$TERM_PROGRAM" != "kiro"
-#     starship init fish | source
-# end
-
-string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
-
-
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
