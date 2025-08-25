@@ -18,6 +18,6 @@ fi
 
 # Create new configuration
 printf "Linking configuration files...\n"
-ln -s "$SCRIPTPATH/config.toml" "$HOME/.config/atuin"
+ln -s "$SCRIPTPATH" "$HOME/.config/atuin"
 
 printf "Done!\n"
