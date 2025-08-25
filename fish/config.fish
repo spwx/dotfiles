@@ -72,3 +72,15 @@ if status --is-interactive
     set -gx PATH "$HOME/.toolbox/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
 end
+
+# The below may not be necessary anymore due to the line below this block
+# if test "$TERM_PROGRAM" != "kiro"
+#     starship init fish | source
+# end
+
+string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
