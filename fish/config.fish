@@ -46,10 +46,6 @@ if status --is-interactive
     else if type batcat
         alias cat batcat
     end
-    
-    # Setup FZF
-    fzf --fish | source
-    set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
 
     # Setup Rust
     set -gx PATH "$HOME/.cargo/bin" $PATH
@@ -57,7 +53,14 @@ if status --is-interactive
     set -gx LANG en_US.UTF-8
     set -gx LANGUAGE en_US.UTF-8
 
-    # Setup pnpm
+    alias e='emacsclient -n -a ""'
+    # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
+
+    # fzf --fish | source
+    # set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
+    atuin init fish | source
+
+    # pnpm
     set -gx PNPM_HOME /Users/spwx/Library/pnpm
     if not string match -q -- $PNPM_HOME $PATH
         set -gx PATH "$PNPM_HOME" $PATH
