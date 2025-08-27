@@ -79,7 +79,9 @@ if status --is-interactive
     set -gx PATH "$HOME/.toolbox/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
 
-    string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+    if string match -q "$TERM_PROGRAM" "kiro"
+        . (kiro --locate-shell-integration-path fish)
+    end
 
 
     # bun
