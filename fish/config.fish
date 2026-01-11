@@ -24,11 +24,24 @@ if status --is-interactive
     # end
 
 
-    # Neovim Setup
+    # Replace `cd` with `z`
+    zoxide init fish | source
+    alias cd z
+
+    # Set EDITOR to Neovim
     if type -q nvim
         set -gx EDITOR (command -s nvim)
         alias vi nvim
     end
+
+    # Set EDITOR to Emacs
+    if type -q emacsclient
+        set -gx EDITOR (command -s emacsclient)
+    end
+
+    # Emacs Alias
+    alias e='emacsclient -n'
+    # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
 
     # SSH setup
     if test -n "$SSH_TTY" || test -n "$ET_VERSION"
@@ -58,14 +71,10 @@ if status --is-interactive
     set -gx LANG en_US.UTF-8
     set -gx LANGUAGE en_US.UTF-8
 
-    # Setup emacs
-    alias e='emacsclient -n -a ""'
-    # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
-
     # Command history
-    # fzf --fish | source
-    # set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
-    atuin init fish | source
+    fzf --fish | source
+    set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
+    # atuin init fish | source
 
     # pnpm
     set -gx PNPM_HOME /Users/spwx/Library/pnpm
@@ -88,3 +97,6 @@ if status --is-interactive
     set --export BUN_INSTALL "$HOME/.bun"
     set --export PATH $BUN_INSTALL/bin $PATH
 end
+
+# opencode
+fish_add_path /Users/spw/.opencode/bin
