@@ -96,7 +96,10 @@ if status --is-interactive
     # bun
     set --export BUN_INSTALL "$HOME/.bun"
     set --export PATH $BUN_INSTALL/bin $PATH
-end
 
-# opencode
-fish_add_path /Users/spw/.opencode/bin
+    # opencode
+    fish_add_path /Users/spw/.opencode/bin
+
+    # sp
+    sp --completion fish | source
+end
