@@ -103,3 +103,6 @@ if status --is-interactive
     # sp
     sp --completion fish | source
 end
+
+# Added by AIM CLI
+set -gx PATH "$HOME/.aim/mcp-servers" $PATH
