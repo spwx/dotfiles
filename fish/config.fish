@@ -102,7 +102,16 @@ if status --is-interactive
 
     # sp
     sp --completion fish | source
+
+    function pi --description 'alias pi=env AWS_PROFILE=bedrock pi'
+	command env AWS_PROFILE=bedrock pi $argv
+    end
+
+    function p --description 'alias p=env AWS_PROFILE=bedrock pi -p'
+	command env AWS_PROFILE=bedrock pi -p $argv
+    end
+
+    # Added by AIM CLI
+    set -gx PATH "$HOME/.aim/mcp-servers" $PATH
 end
 
-# Added by AIM CLI
-set -gx PATH "$HOME/.aim/mcp-servers" $PATH
