@@ -82,8 +82,8 @@ if vim.g.vscode then -- VSCode extension
 	map("n", "za", "editor.toggleFold")
 
 	-- Code navigation
-	map("n", "gd", "editor.action.peekDefinition")
-	map("n", "gD", "editor.action.revealDefinition")
+	map("n", "gD", "editor.action.peekDefinition")
+	map("n", "gd", "editor.action.revealDefinition")
 	map("n", "gr", "editor.action.referenceSearch.trigger")
 	map("n", "ga", "editor.action.quickFix")
 	map("n", "gf", "editor.action.formatDocument")
