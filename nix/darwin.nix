@@ -84,7 +84,6 @@
 
     brews = [
       "acsandmann/tap/rift"
-      "fish"
       "podman"
     ];
 
@@ -93,7 +92,6 @@
       "claude-code"
       "font-victor-mono-nerd-font"
       "mactex"
-      "meld"
       "moonlight"
       "raycast"
       "signal"

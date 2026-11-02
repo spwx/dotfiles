@@ -21,7 +21,14 @@
   # CLI tools with home-manager modules. Each one installs the tool and adds
   # its shell setup to fish (and any other shell home-manager manages).
   # ---------------------------------------------------------------------------
-  programs.starship.enable = true;   # reads ~/.config/starship.toml
+  # Prompt. `settings` is written out as ~/.config/starship.toml.
+  programs.starship = {
+    enable = true;
+    settings = {
+      nodejs.disabled = true;
+      # hostname.ssh_symbol = "";
+    };
+  };
 
   programs.zoxide.enable = true;     # provides `z`; `cd` is aliased to it
 
@@ -58,6 +65,7 @@
     settings = {
       user.name = "Sean Wall";
       user.email = "sean@wall.ninja";
+      init.defaultBranch = "main";
       merge.conflictStyle = "zdiff3";
     };
     ignores = [ "**/.claude/settings.local.json" ];
@@ -94,6 +102,17 @@
   ];
 
   # ---------------------------------------------------------------------------
+  # Dotfiles kept as files in this repo
+  # ---------------------------------------------------------------------------
+  # vscode-neovim's config (VS Code's settings.json points at this path).
+  # mkOutOfStoreSymlink links to the repo checkout instead of a store copy,
+  # so edits to init.lua apply immediately, without a rebuild. Only the file
+  # is linked: lazy.nvim writes lazy-lock.json next to it.
+  xdg.configFile."vscode-neovim-config/init.lua".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/vscode-neovim-config/init.lua";
+
+  # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)
   # ---------------------------------------------------------------------------
   # Prepended to PATH in this order. ~/.cargo/bin is left to rustup's
@@ -102,6 +121,7 @@
     "$HOME/.local/bin"
     "$HOME/.toolbox/bin"
     "$HOME/go/bin"
+    "$HOME/.opencode/bin"
   ];
 
   home.sessionVariables = {

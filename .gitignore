@@ -6,7 +6,4 @@ debug
 foo.*
 *.log
 data
-spell
-lazy-lock.json
-snippets/
 opencode.json
