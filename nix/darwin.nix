@@ -105,7 +105,6 @@
       "pngpaste"
       "podman"
       "poppler"
-      "postgresql@18"
       "ripgrep"
       "rust-analyzer"
       "starship"
