@@ -85,12 +85,9 @@
     brews = [
       "acsandmann/tap/rift"
       "bacon"
-      "bat"
       "cargo-deny"
-      "eza"
       "fd"
       "fish"
-      "fzf"
       "gh"
       "git-delta"
       "gitu"
@@ -107,15 +104,12 @@
       "poppler"
       "ripgrep"
       "rust-analyzer"
-      "starship"
       "tmux"
       "tree"
       "tuios"
       "uv"
-      "vivid"
       "yazi"
       "zig"
-      "zoxide"
     ];
 
     casks = [

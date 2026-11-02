@@ -18,6 +18,39 @@
   };
 
   # ---------------------------------------------------------------------------
+  # CLI tools with home-manager modules. Each one installs the tool and adds
+  # its shell setup to fish (and any other shell home-manager manages).
+  # ---------------------------------------------------------------------------
+  programs.starship.enable = true;   # reads ~/.config/starship.toml
+
+  programs.zoxide.enable = true;     # provides `z`; `cd` is aliased to it
+
+  programs.fzf = {
+    enable = true;                   # Ctrl-R history, Ctrl-T files, Alt-C dirs
+    defaultOptions = [ "--layout=reverse" "--cycle" "--height=40%" ];
+    colors = {                       # gruvbox
+      bg = "#32302f";     "bg+" = "#3c3836";
+      fg = "#ebdbb2";     "fg+" = "#ebdbb2";
+      hl = "#928374";     "hl+" = "#fb4934";
+      header = "#928374"; info = "#8ec07c";
+      prompt = "#fb4934"; pointer = "#fb4934";
+      marker = "#fb4934"; spinner = "#fb4934";
+    };
+  };
+
+  programs.eza.enable = true;        # also adds ll, la, lt, lla aliases
+
+  programs.bat = {
+    enable = true;
+    config = { theme = "gruvbox-dark"; style = "plain"; };
+  };
+
+  programs.vivid = {
+    enable = true;
+    activeTheme = "gruvbox-dark-hard"; # sets LS_COLORS
+  };
+
+  # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)
   # ---------------------------------------------------------------------------
   # Prepended to PATH in this order. ~/.cargo/bin is left to rustup's
@@ -34,20 +67,17 @@
     LANG = "en_US.UTF-8";
     LANGUAGE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
-    BAT_THEME = "gruvbox-dark";
-    BAT_STYLE = "plain";
-    FZF_DEFAULT_OPTS = "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934";
   };
 
   # ---------------------------------------------------------------------------
   # fish (the binary and login shell come from nix-darwin; this is the config)
-  # ---------------------------------------------------------------
+  # ---------------------------------------------------------------------------
   programs.fish = {
     enable = true;
 
     # Every fish shell, interactive or not.
     shellInit = ''
-      # Homebrew (macOS only). Appended, so a Nix copy of a tool wi
+      # Homebrew (macOS only). Appended, so a Nix copy of a tool wins over
       # a Homebrew copy of the same tool.
       if test -d /opt/homebrew/bin
           fish_add_path --global --append --path /opt/homebrew/bin /opt/homebrew/sbin
@@ -57,18 +87,12 @@
     shellAliases = {
       cd = "z";
       vi = "nvim";
-      ls = "eza";
       cat = "bat";
       ssh = "env TERM=xterm-256color ssh";
     };
 
     interactiveShellInit = ''
       set -g fish_greeting   # no greeting
-
-      starship init fish | source
-      zoxide init fish | source
-      fzf --fish | source
-      set -gx LS_COLORS (vivid generate gruvbox-dark-hard)
     '';
   };
 }
