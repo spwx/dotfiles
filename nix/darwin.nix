@@ -56,7 +56,6 @@
 
     taps = [
       "acsandmann/tap"
-      "d12frosted/emacs-plus"
       "felixkratz/formulae"
     ];
 
@@ -65,8 +64,6 @@
       "bacon"
       "bat"
       "cargo-deny"
-      "d12frosted/emacs-plus/emacs-plus@30"
-      "enchant"
       "eza"
       "fd"
       "felixkratz/formulae/borders"
@@ -78,7 +75,6 @@
       "helix"
       "herdr"
       "imagemagick"
-      "libgccjit"
       "neovim"
       "node"
       "ocrmypdf"

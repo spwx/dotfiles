@@ -13,7 +13,6 @@ if status --is-interactive
     # Setup Homebrew -- Must come early
     if test -x /opt/homebrew/bin/brew
         eval (/opt/homebrew/bin/brew shellenv)
-        set -gx INFOPATH /opt/homebrew/share/info/emacs $INFOPATH
     end
 
     # Setup Nix (adds ~/.nix-profile/bin and the default profile to PATH)
@@ -33,15 +32,6 @@ if status --is-interactive
         set -gx EDITOR (command -s nvim)
         alias vi nvim
     end
-
-    # Set EDITOR to Emacs
-    if type -q emacsclient
-        set -gx EDITOR (command -s emacsclient)
-    end
-
-    # Emacs Alias
-    alias e='emacsclient -n'
-    # source $HOME/.emacs.d/.local/straight/repos/emacs-libvterm/etc/emacs-vterm.fish
 
     # SSH setup
     if test -n "$SSH_TTY" || test -n "$ET_VERSION"
