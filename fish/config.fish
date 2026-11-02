@@ -65,13 +65,6 @@ if status --is-interactive
     fzf --fish | source
     set -gx FZF_DEFAULT_OPTS "--layout=reverse --cycle --height=40% --color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934"
 
-    # pnpm
-    set -gx PNPM_HOME /Users/spwx/Library/pnpm
-    if not string match -q -- $PNPM_HOME $PATH
-        set -gx PATH "$PNPM_HOME" $PATH
-    end
-    # pnpm end
-
     # Setup PATH
     set -gx PATH "$HOME/go/bin" $PATH
     set -gx PATH "$HOME/.toolbox/bin" $PATH
