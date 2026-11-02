@@ -58,8 +58,10 @@
   # ---------------------------------------------------------------------------
   # Homebrew, declared instead of installed by hand
   #
-  # cleanup = "none" means anything installed but not listed here is left
-  # alone. Switch to "uninstall" (or "zap") only once this list is complete.
+  # This list is the source of truth: cleanup = "uninstall" removes any
+  # formula, cask or tap that isn't listed here on every switch. Install
+  # things by adding them here, not with `brew install`.
+  # ("zap" would also delete uninstalled casks' app data.)
   # ---------------------------------------------------------------------------
   homebrew = {
     enable = true;
@@ -67,7 +69,7 @@
     onActivation = {
       autoUpdate = false; # don't run `brew update` on every switch
       upgrade = false;    # don't upgrade packages on every switch
-      cleanup = "none";
+      cleanup = "uninstall";
     };
 
     taps = [
