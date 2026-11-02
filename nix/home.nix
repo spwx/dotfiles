@@ -5,7 +5,8 @@
   # casually: it keeps defaults stable, it doesn't pick the version.
   home.stateVersion = "26.11";
 
-  # Let home-manager manage itself (gives you the `home-manager` CLI/news).
+  # Installs the `home-manager` CLI in standalone setups (Linux).
+  # No effect under nix-darwin, where darwin-rebuild does the switching.
   programs.home-manager.enable = true;
 
   # direnv loads .envrc files per directory; nix-direnv makes `use flake`
@@ -19,8 +20,8 @@
   # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)
   # ---------------------------------------------------------------------------
-  # Prepended to PATH in this order. ~/.cargo/bin is also added by rustup's
-  # conf.d/rustup.fish; listing it here keeps the order predictable.
+  # Prepended to PATH in this order. ~/.cargo/bin is left to rustup's
+  # conf.d/rustup.fish; listing it here too would add it twice.
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/.toolbox/bin"
