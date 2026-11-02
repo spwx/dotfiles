@@ -44,46 +44,65 @@ git clone git@github.com:spwx/dotfiles.git ~/.dotfiles
 #+end_src
 
 * Homebrew
+nix-darwin manages Homebrew packages (=homebrew.*= in =nix/darwin.nix=) but
+doesn't install Homebrew itself.
+
 ** Install
-- follow the [[https://brew.sh][website's]] instructions:
+- follow the [[https://brew.sh][website's]] instructions
 
 ** Disable Analytics
 #+begin_src sh
 /opt/homebrew/bin/brew analytics off
 #+end_src
 
-* Install Packages
-#+BEGIN_SRC shell
-/opt/homebrew/bin/brew install \
-  fish \
-  vivid \
-  fzf \
-  starship \
-  tmux \
-  eza \
-  bat \
-  gitu \
-  fd \
-  rg \
-  nvim \
-  font-victor-mono-nerd-font \
-  chatgpt \
-  raycast \
-  visual-studio-code
-#+END_SRC
+* Nix, nix-darwin and home-manager
+Everything else comes from the flake in this repo:
+- =nix/darwin.nix= :: the machine: Nix settings, macOS defaults, Touch ID
+  sudo, fish as a system shell, and the Homebrew list (~cleanup =
+  "uninstall"~, so anything not listed gets removed)
+- =nix/home.nix= :: the user (home-manager): CLI tools, fish config, git,
+  starship, direnv and other dotfiles
+
+** Install Nix
+- use the upstream [[https://github.com/NixOS/nix-installer][NixOS/nix-installer]]
+  (not the Determinate one)
+
+** First Switch
+=darwin-rebuild= doesn't exist yet, so run it from the nix-darwin flake. The
+flake output is named after the hostname (=Seans-MacBook-Pro=).
+
+#+begin_src sh
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.dotfiles
+#+end_src
+
+If it stops with "Unexpected files in /etc", move each listed file aside
+(e.g. =sudo mv /etc/shells /etc/shells.before-nix-darwin=) and run it again.
+
+If home-manager stops with "would be clobbered", the file is a symlink it
+didn't create: delete the symlink and switch again. (Regular files are moved
+aside automatically as =*.before-home-manager=.)
+
+** Make Fish The Login Shell
+Then log out and back in.
+
+#+begin_src sh
+chsh -s /run/current-system/sw/bin/fish
+#+end_src
+
+** Day To Day
+#+begin_src sh
+# after editing anything under nix/ (new files must be git added first)
+nix build .#darwinConfigurations.Seans-MacBook-Pro.system --no-link
+sudo darwin-rebuild switch --flake ~/.dotfiles
+
+# update nixpkgs, nix-darwin and home-manager
+nix flake update
+#+end_src
 
 * iTerm2 Configuration
 - Set the font
 - Set =Profile= > =Keys= > =Left Option Key= to =ESC+=
 - Set =Profile= > =Keys= > =Right Option Key= to =ESC+=
-
-* Setup Fish
-Run the below and then log out and back in.
-
-#+BEGIN_SRC sh
-echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
-chsh -s /opt/homebrew/bin/fish
-#+END_SRC
 
 * Window Management
 Managed by nix-darwin: rift (tiling) and JankyBorders (focus borders) are
@@ -93,13 +112,9 @@ configured in =nix/window-management.nix=.
 ** Install =Rustup= And Rust
 - [[https://rustup.rs][Rustup Installation]]
 
-** Install Rust Analyzer
-- run with =rusutp run rust-analyzer=
-- find the binary with =rusutp which rust-analyzer=
-
-#+begin_src bash
-rustup component add rust-analyzer
-#+end_src
+=rust-analyzer= comes from =home.packages=; rustup's =rust-analyzer= proxy
+falls back to it when the toolchain doesn't include the component.
+Projects use per-project flakes (rust-overlay) for their toolchains.
 
 * Firefox
 Move Tab and URL bars to the bottom with [[https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/toolbars_below_content_v2.css][this user script]].
