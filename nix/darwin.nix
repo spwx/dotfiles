@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./macos-defaults.nix
+  ];
+
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # Allow packages with non-free licenses from nixpkgs.
