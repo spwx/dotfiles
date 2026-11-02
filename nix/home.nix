@@ -51,6 +51,19 @@
   };
 
   # ---------------------------------------------------------------------------
+  # git (writes ~/.config/git/config and ~/.config/git/ignore)
+  # ---------------------------------------------------------------------------
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "Sean Wall";
+      user.email = "sean@wall.ninja";
+      merge.conflictStyle = "zdiff3";
+    };
+    ignores = [ "**/.claude/settings.local.json" ];
+  };
+
+  # ---------------------------------------------------------------------------
   # Plain CLI tools (no config or shell setup needed)
   # ---------------------------------------------------------------------------
   home.packages = with pkgs; [

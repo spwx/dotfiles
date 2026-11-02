@@ -85,7 +85,6 @@
     brews = [
       "acsandmann/tap/rift"
       "fish"
-      "git-delta"
       "podman"
     ];
 
