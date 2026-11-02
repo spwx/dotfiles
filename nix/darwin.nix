@@ -41,7 +41,7 @@
   nix.optimise.automatic = true;
 
   # ---------------------------------------------------------------------------
-  # Touch ID for sudo (reattach makes it work inside tmux)
+  # Touch ID for sudo (reattach makes it work inside terminal multiplexers)
   # ---------------------------------------------------------------------------
   security.pam.services.sudo_local = {
     touchIdAuth = true;
@@ -85,27 +85,16 @@
     brews = [
       "acsandmann/tap/rift"
       "bacon"
-      "cargo-deny"
       "fd"
       "fish"
       "gh"
       "git-delta"
       "gitu"
-      "helix"
       "herdr"
-      "imagemagick"
       "neovim"
-      "node"
-      "ocrmypdf"
-      "pandoc"
-      "pkgconf"
-      "pngpaste"
       "podman"
-      "poppler"
       "ripgrep"
       "rust-analyzer"
-      "tmux"
-      "tree"
       "tuios"
       "uv"
       "yazi"
