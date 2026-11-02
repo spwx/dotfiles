@@ -3,6 +3,9 @@
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
 
+  # Allow packages with non-free licenses from nixpkgs.
+  nixpkgs.config.allowUnfree = true;
+
   # Read the nix-darwin changelog before changing this.
   system.stateVersion = 6;
 
@@ -31,6 +34,14 @@
 
   # Deduplicate identical files in /nix/store.
   nix.optimise.automatic = true;
+
+  # ---------------------------------------------------------------------------
+  # Touch ID for sudo (reattach makes it work inside tmux)
+  # ---------------------------------------------------------------------------
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    reattach = true;
+  };
 
   # ---------------------------------------------------------------------------
   # System packages (installed for all users from nixpkgs)
