@@ -18,11 +18,6 @@ if status --is-interactive
 
     # Starship Setup
     starship init fish | source
-    # The below may not be necessary anymore
-    # if test "$TERM_PROGRAM" != "kiro"
-    #     starship init fish | source
-    # end
-
 
     # Replace `cd` with `z`
     zoxide init fish | source
@@ -87,31 +82,5 @@ if status --is-interactive
     set -gx PATH "$HOME/go/bin" $PATH
     set -gx PATH "$HOME/.toolbox/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
-
-    if string match -q "$TERM_PROGRAM" "kiro"
-        . (kiro --locate-shell-integration-path fish)
-    end
-
-
-    # bun
-    set --export BUN_INSTALL "$HOME/.bun"
-    set --export PATH $BUN_INSTALL/bin $PATH
-
-    # opencode
-    fish_add_path /Users/spw/.opencode/bin
-
-    # sp
-    sp --completion fish | source
-
-    function pi --description 'alias pi=env AWS_PROFILE=bedrock pi'
-	command env AWS_PROFILE=bedrock pi $argv
-    end
-
-    function p --description 'alias p=env AWS_PROFILE=bedrock pi -p'
-	command env AWS_PROFILE=bedrock pi -p $argv
-    end
-
-    # Added by AIM CLI
-    set -gx PATH "$HOME/.aim/mcp-servers" $PATH
 end
 
