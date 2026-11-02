@@ -103,7 +103,6 @@
 
     casks = [
       "8bitdo-ultimate-software-v2"
-      "bambu-studio"
       "claude-code"
       "font-victor-mono-nerd-font"
       "mactex"
