@@ -8,4 +8,3 @@ $SCRIPT_DIR/tmux/setup.sh
 $SCRIPT_DIR/aerospace/setup.sh
 $SCRIPT_DIR/nvim/setup.sh
 $SCRIPT_DIR/vscode-neovim-config/setup.sh
-$SCRIPT_DIR/borders/setup.sh

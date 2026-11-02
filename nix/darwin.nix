@@ -3,6 +3,7 @@
 {
   imports = [
     ./macos-defaults.nix
+    ./window-management.nix
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -71,7 +72,6 @@
 
     taps = [
       "acsandmann/tap"
-      "felixkratz/formulae"
     ];
 
     brews = [
@@ -81,7 +81,6 @@
       "cargo-deny"
       "eza"
       "fd"
-      "felixkratz/formulae/borders"
       "fish"
       "fzf"
       "gh"
