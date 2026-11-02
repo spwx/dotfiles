@@ -86,11 +86,8 @@ chsh -s /opt/homebrew/bin/fish
 #+END_SRC
 
 * Window Management
-#+BEGIN_SRC sh
-brew tap FelixKratz/formulae
-brew install borders
-brew install --cask nikitabobko/tap/aerospace
-#+END_SRC
+Managed by nix-darwin: rift (tiling) and JankyBorders (focus borders) are
+configured in =nix/window-management.nix=.
 
 * Rust
 ** Install =Rustup= And Rust
