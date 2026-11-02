@@ -1,0 +1,118 @@
+{ pkgs, ... }:
+
+{
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
+  # Read the nix-darwin changelog before changing this.
+  system.stateVersion = 6;
+
+  # The user that Homebrew and per-user macOS settings apply to.
+  system.primaryUser = "spw";
+  users.users.spw.home = "/Users/spw";
+
+  # ---------------------------------------------------------------------------
+  # Nix itself (replaces the installer-generated /etc/nix/nix.conf)
+  # ---------------------------------------------------------------------------
+  # Track the newest Nix release instead of nixpkgs' default (older) one.
+  nix.package = pkgs.nixVersions.latest;
+
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    always-allow-substitutes = true;
+    extra-nix-path = "nixpkgs=flake:nixpkgs";
+  };
+
+  # Weekly garbage collection: Sundays at 3am, keep the last 30 days.
+  nix.gc = {
+    automatic = true;
+    interval = { Weekday = 0; Hour = 3; Minute = 0; };
+    options = "--delete-older-than 30d";
+  };
+
+  # Deduplicate identical files in /nix/store.
+  nix.optimise.automatic = true;
+
+  # ---------------------------------------------------------------------------
+  # System packages (installed for all users from nixpkgs)
+  # Empty for now; packages move here or into home-manager later.
+  # ---------------------------------------------------------------------------
+  environment.systemPackages = with pkgs; [
+  ];
+
+  # ---------------------------------------------------------------------------
+  # Homebrew, declared instead of installed by hand
+  #
+  # cleanup = "none" means anything installed but not listed here is left
+  # alone. Switch to "uninstall" (or "zap") only once this list is complete.
+  # ---------------------------------------------------------------------------
+  homebrew = {
+    enable = true;
+
+    onActivation = {
+      autoUpdate = false; # don't run `brew update` on every switch
+      upgrade = false;    # don't upgrade packages on every switch
+      cleanup = "none";
+    };
+
+    taps = [
+      "acsandmann/tap"
+      "d12frosted/emacs-plus"
+      "felixkratz/formulae"
+    ];
+
+    brews = [
+      "acsandmann/tap/rift"
+      "bacon"
+      "bat"
+      "cargo-deny"
+      "d12frosted/emacs-plus/emacs-plus@30"
+      "enchant"
+      "eza"
+      "fd"
+      "felixkratz/formulae/borders"
+      "fish"
+      "fzf"
+      "gh"
+      "git-delta"
+      "gitu"
+      "helix"
+      "herdr"
+      "imagemagick"
+      "libgccjit"
+      "neovim"
+      "node"
+      "ocrmypdf"
+      "pandoc"
+      "pkgconf"
+      "pngpaste"
+      "podman"
+      "poppler"
+      "postgresql@18"
+      "ripgrep"
+      "rust-analyzer"
+      "starship"
+      "tmux"
+      "tree"
+      "tuios"
+      "uv"
+      "vivid"
+      "yazi"
+      "zig"
+      "zoxide"
+    ];
+
+    casks = [
+      "8bitdo-ultimate-software-v2"
+      "bambu-studio"
+      "claude-code"
+      "font-victor-mono-nerd-font"
+      "mactex"
+      "meld"
+      "moonlight"
+      "raycast"
+      "signal"
+      "visual-studio-code"
+      "wezterm"
+    ];
+  };
+}
