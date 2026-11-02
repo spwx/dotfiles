@@ -51,6 +51,36 @@
   };
 
   # ---------------------------------------------------------------------------
+  # Plain CLI tools (no config or shell setup needed)
+  # ---------------------------------------------------------------------------
+  home.packages = with pkgs; [
+    # files and search
+    fd
+    ripgrep
+    yazi
+
+    # editor: EDITOR, and the binary behind vscode-neovim. Deliberately no
+    # ~/.config/nvim, so it's a plain package rather than programs.neovim.
+    neovim
+
+    # git and GitHub
+    gh
+    gitu
+
+    # Rust (toolchains come from rustup or per-project flakes)
+    bacon
+    rust-analyzer
+
+    # other languages and tools
+    uv
+    zig
+
+    # terminal
+    herdr
+    tuios
+  ];
+
+  # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)
   # ---------------------------------------------------------------------------
   # Prepended to PATH in this order. ~/.cargo/bin is left to rustup's
