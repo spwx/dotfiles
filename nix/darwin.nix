@@ -52,8 +52,14 @@
   # System packages (installed for all users from nixpkgs)
   # Empty for now; packages move here or into home-manager later.
   # ---------------------------------------------------------------------------
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = with pkgs; [ ];
+
+  # ---------------------------------------------------------------------------
+  # Shell: fish from Nix, so it reads nix-darwin's /etc/fish setup.
+  # The login shell itself is set by hand: chsh -s /run/current-system/sw/bin/fish
+  # ---------------------------------------------------------------------------
+  programs.fish.enable = true;
+  environment.shells = [ pkgs.fish ];
 
   # ---------------------------------------------------------------------------
   # Homebrew, declared instead of installed by hand
