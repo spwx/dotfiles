@@ -16,6 +16,11 @@ if status --is-interactive
         set -gx INFOPATH /opt/homebrew/share/info/emacs $INFOPATH
     end
 
+    # Setup Nix (adds ~/.nix-profile/bin and the default profile to PATH)
+    if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+    end
+
     # Starship Setup
     starship init fish | source
 
@@ -82,5 +87,10 @@ if status --is-interactive
     set -gx PATH "$HOME/go/bin" $PATH
     set -gx PATH "$HOME/.toolbox/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
+
+    # direnv -- keep last so it sees the final PATH
+    if type -q direnv
+        direnv hook fish | source
+    end
 end
 
