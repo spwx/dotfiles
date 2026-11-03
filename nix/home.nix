@@ -1,5 +1,15 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Neovim for vscode-neovim only, with its plugins built in (versions are
+  # pinned by flake.lock). The terminal `nvim` (EDITOR) stays plain.
+  # wrapRc = false keeps the wrapper from passing its own generated config,
+  # so vscode-neovim's init.lua still loads.
+  vscodeNeovim = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+    plugins = [ pkgs.vimPlugins.nvim-surround ];
+    wrapRc = false;
+  };
+in
 {
   # Set once, on first install. Like system.stateVersion, don't bump it
   # casually: it keeps defaults stable, it doesn't pick the version.
@@ -113,11 +123,30 @@
   # ---------------------------------------------------------------------------
   # vscode-neovim's config (VS Code's settings.json points at this path).
   # mkOutOfStoreSymlink links to the repo checkout instead of a store copy,
-  # so edits to init.lua apply immediately, without a rebuild. Only the file
-  # is linked: lazy.nvim writes lazy-lock.json next to it.
+  # so edits to init.lua apply immediately, without a rebuild. Plugins come
+  # from vscodeNeovim (top of this file), not a plugin manager.
   xdg.configFile."vscode-neovim-config/init.lua".source =
     config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/vscode-neovim-config/init.lua";
+
+  # VS Code settings for vscode-neovim. VS Code itself is the Homebrew cask
+  # (package = null). mutableUserSettings merges these keys into the
+  # existing settings.json on every switch (these win on conflict) instead
+  # of replacing it with a read-only store link, so VS Code can still save
+  # its own settings. The nvim path follows the Nix package (vscodeNeovim),
+  # so it can't go stale the way /opt/homebrew/bin/nvim did.
+  programs.vscode = {
+    enable = true;
+    package = null;
+    profiles.default = {
+      mutableUserSettings = true;
+      userSettings = {
+        "vscode-neovim.neovimExecutablePaths.darwin" = lib.getExe vscodeNeovim;
+        "vscode-neovim.neovimInitVimPaths.darwin" =
+          "${config.xdg.configHome}/vscode-neovim-config/init.lua";
+      };
+    };
+  };
 
   # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)

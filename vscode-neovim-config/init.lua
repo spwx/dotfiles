@@ -1,62 +1,13 @@
--- To use this config in VSCode
--- 1. Install the "VSCode Neovim" plugin.
--- 2. Modify VSCode's settings.json file to include these two lines:
---    "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
---    "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/vscode-neovim-config/init.lua",
---
--- To upadte the Neovim Plugins:
--- 1. NVIM_APPNAME=vscode-neovim-config nvim
--- 2. In nvim run :Lazy
+-- Plugins are installed by Nix (vscodeNeovim in nix/home.nix) and pinned by
+-- flake.lock; update them with `nix flake update`.
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
-require("lazy").setup({
-	spec = {
-		-- add your plugins here
-		{
-			"kylechui/nvim-surround",
-			version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
-			event = "VeryLazy",
-			config = function()
-				require("nvim-surround").setup({
-					-- Configuration here, or leave empty to use defaults
-				})
-			end,
-		},
-	},
-	-- Configure any other settings here. See the documentation for more details.
-	-- colorscheme that will be used when installing plugins.
-	-- install = { colorscheme = { "habamax" } },
-	-- automatically check for plugin updates
-	checker = { enabled = true },
-})
+require("nvim-surround").setup({})
 
 -- vscode setup
 if vim.g.vscode then -- VSCode extension
-	vim.g.mapleader = " "
-
 	vim.keymap.set({ "n", "v" }, "gl", "$")
 	vim.keymap.set({ "n", "v" }, "gh", "^")
 	vim.keymap.set({ "n", "v" }, "<leader>fs", ":w<CR>")
