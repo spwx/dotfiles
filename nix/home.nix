@@ -32,7 +32,6 @@ in
     enable = true;
     settings = {
       nodejs.disabled = true;
-      # hostname.ssh_symbol = "";
     };
   };
 
@@ -188,7 +187,6 @@ in
     EDITOR = "nvim";
     COLORTERM = "truecolor";
     LANG = "en_US.UTF-8";
-    LANGUAGE = "en_US.UTF-8";
   };
 
   # ---------------------------------------------------------------------------

@@ -1,6 +1,5 @@
 #+TITLE:  MacOS Setup
 #+OPTIONS: num:nil toc:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/style.css" />
 
 * Downloads
 Download and install:
