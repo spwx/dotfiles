@@ -10,18 +10,18 @@ require("nvim-surround").setup({})
 if vim.g.vscode then -- VSCode extension
 	vim.keymap.set({ "n", "v" }, "gl", "$")
 	vim.keymap.set({ "n", "v" }, "gh", "^")
-	vim.keymap.set({ "n", "v" }, "<leader>fs", ":w<CR>")
+	vim.keymap.set({ "n", "v" }, "<leader>fs", "<Cmd>w<CR>")
 
 	-- Needed for folding
-	vim.api.nvim_set_keymap("n", "j", "gj", { noremap = false, silent = true })
-	vim.api.nvim_set_keymap("n", "k", "gk", { noremap = false, silent = true })
+	vim.keymap.set("n", "j", "gj", { remap = true, silent = true })
+	vim.keymap.set("n", "k", "gk", { remap = true, silent = true })
 
 	local vscode = require("vscode")
 
 	local function map(mode, lhs, rhs)
 		vim.keymap.set(mode, lhs, function()
 			vscode.call(rhs)
-		end, { silent = true, noremap = true })
+		end, { silent = true })
 	end
 
 	map("n", "zM", "editor.foldAll")

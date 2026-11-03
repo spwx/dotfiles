@@ -12,7 +12,7 @@ in
     style = "round";
     width = 9.0;
     active_color = "0xFF30C489";
-    inactive_color = "0xff504945";
+    inactive_color = "0xFF504945";
   };
 
   # rift isn't in nixpkgs, so the binary still comes from Homebrew
@@ -31,7 +31,7 @@ in
       ProcessType = "Interactive";
       Nice = -20;
       EnvironmentVariables = {
-        RUST_LOG = "error,warn,info";
+        RUST_LOG = "info";
         # So commands run from rift's config can find your tools.
         PATH = builtins.concatStringsSep ":" [
           "${home}/.nix-profile/bin"
@@ -47,8 +47,10 @@ in
           "/sbin"
         ];
       };
-      StandardOutPath = "/tmp/rift_${username}.out.log";
-      StandardErrorPath = "/tmp/rift_${username}.err.log";
+      # Logs go in your own Library, not /tmp: /tmp is shared with other
+      # users and is wiped on reboot.
+      StandardOutPath = "${home}/Library/Logs/rift.out.log";
+      StandardErrorPath = "${home}/Library/Logs/rift.err.log";
     };
   };
 }

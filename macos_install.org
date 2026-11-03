@@ -24,13 +24,13 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 - this simplifies SSH Agent Forwarding when there is a passphrase
 
   #+begin_src shell
-ssh-add --apple-use-keychain ~/.ssh/$private_key
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
   #+end_src
 
 ** Add Key To Github
 - copy the public key:
   #+begin_src shell
-=pbcopy < ~/.ssh/id_ed25519.pub=
+pbcopy < ~/.ssh/id_ed25519.pub
   #+end_src
 - add it to GitHub: =Settings= -> =SSH and GPG keys= -> =New SSH Key=
 - test with:
@@ -92,7 +92,7 @@ chsh -s /run/current-system/sw/bin/fish
 ** Day To Day
 #+begin_src sh
 # after editing anything under nix/ (new files must be git added first)
-nix build .#darwinConfigurations.Seans-MacBook-Pro.system --no-link
+nix build ~/.dotfiles#darwinConfigurations.Seans-MacBook-Pro.system --no-link
 sudo darwin-rebuild switch --flake ~/.dotfiles
 
 # update nixpkgs, nix-darwin and home-manager
@@ -119,9 +119,6 @@ rustup component add rust-analyzer
 
 =~/.cargo/bin= is on PATH via =home.sessionPath= for =cargo install= tools.
 Projects use per-project flakes (rust-overlay) for their toolchains.
-
-* Firefox
-Move Tab and URL bars to the bottom with [[https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/toolbars_below_content_v2.css][this user script]].
 
 * Verify These Steps
 ** Parallels
