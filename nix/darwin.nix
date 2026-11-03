@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   imports = [
@@ -15,8 +15,8 @@
   system.stateVersion = 6;
 
   # The user that Homebrew and per-user macOS settings apply to.
-  system.primaryUser = "spw";
-  users.users.spw.home = "/Users/spw";
+  system.primaryUser = username;
+  users.users.${username}.home = "/Users/${username}";
 
   # ---------------------------------------------------------------------------
   # Nix itself (replaces the installer-generated /etc/nix/nix.conf)

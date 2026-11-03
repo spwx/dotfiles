@@ -11,19 +11,27 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
-    darwinConfigurations."Seans-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-      modules = [
-        ./nix/darwin.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "before-home-manager";
-          home-manager.users.spw = import ./nix/home.nix;
-        }
-        { system.configurationRevision = self.rev or self.dirtyRev or null; }
-      ];
+  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }:
+    let
+      # Set once here; passed to every module as the `username` argument.
+      username = "spw";
+      hostname = "Seans-MacBook-Pro";
+    in
+    {
+      darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit username; };
+        modules = [
+          ./nix/darwin.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "before-home-manager";
+            home-manager.extraSpecialArgs = { inherit username; };
+            home-manager.users.${username} = import ./nix/home.nix;
+          }
+          { system.configurationRevision = self.rev or self.dirtyRev or null; }
+        ];
+      };
     };
-  };
 }

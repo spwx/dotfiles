@@ -1,6 +1,9 @@
 # Window management: rift (tiling) and JankyBorders (focus borders).
-{ ... }:
+{ config, username, ... }:
 
+let
+  home = config.users.users.${username}.home;
+in
 {
   # JankyBorders from nixpkgs, run as a launchd agent by nix-darwin.
   # Replaces the Homebrew `borders` service and borders/bordersrc.
@@ -31,8 +34,8 @@
         RUST_LOG = "error,warn,info";
         # So commands run from rift's config can find your tools.
         PATH = builtins.concatStringsSep ":" [
-          "/Users/spw/.nix-profile/bin"
-          "/etc/profiles/per-user/spw/bin"
+          "${home}/.nix-profile/bin"
+          "/etc/profiles/per-user/${username}/bin"
           "/run/current-system/sw/bin"
           "/nix/var/nix/profiles/default/bin"
           "/opt/homebrew/bin"
@@ -44,8 +47,8 @@
           "/sbin"
         ];
       };
-      StandardOutPath = "/tmp/rift_spw.out.log";
-      StandardErrorPath = "/tmp/rift_spw.err.log";
+      StandardOutPath = "/tmp/rift_${username}.out.log";
+      StandardErrorPath = "/tmp/rift_${username}.err.log";
     };
   };
 }

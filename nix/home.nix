@@ -5,10 +5,6 @@
   # casually: it keeps defaults stable, it doesn't pick the version.
   home.stateVersion = "26.11";
 
-  # Installs the `home-manager` CLI in standalone setups (Linux).
-  # No effect under nix-darwin, where darwin-rebuild does the switching.
-  programs.home-manager.enable = true;
-
   # direnv loads .envrc files per directory; nix-direnv makes `use flake`
   # fast and keeps dev-shell dependencies from being garbage-collected.
   programs.direnv = {
@@ -30,7 +26,12 @@
     };
   };
 
-  programs.zoxide.enable = true;     # provides `z`; `cd` is aliased to it
+  # `--cmd cd` makes zoxide define `cd` (and `cdi`) itself, with completion,
+  # instead of `z` plus an alias.
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd cd" ];
+  };
 
   programs.fzf = {
     enable = true;                   # Ctrl-R history, Ctrl-T files, Alt-C dirs
@@ -135,7 +136,6 @@
     COLORTERM = "truecolor";
     LANG = "en_US.UTF-8";
     LANGUAGE = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
   };
 
   # ---------------------------------------------------------------------------
@@ -154,7 +154,6 @@
     '';
 
     shellAliases = {
-      cd = "z";
       vi = "nvim";
       cat = "bat";
       ssh = "env TERM=xterm-256color ssh";
