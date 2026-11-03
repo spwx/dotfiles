@@ -109,11 +109,15 @@ Managed by nix-darwin: rift (tiling) and JankyBorders (focus borders) are
 configured in =nix/window-management.nix=.
 
 * Rust
-** Install =Rustup= And Rust
-- [[https://rustup.rs][Rustup Installation]]
+** Install A Toolchain
+=rustup= comes from =home.packages= (no curl installer, no =~/.cargo/env=).
+After the first switch:
+#+begin_src sh
+rustup default stable
+rustup component add rust-analyzer
+#+end_src
 
-=rust-analyzer= comes from =home.packages=; rustup's =rust-analyzer= proxy
-falls back to it when the toolchain doesn't include the component.
+=~/.cargo/bin= is on PATH via =home.sessionPath= for =cargo install= tools.
 Projects use per-project flakes (rust-overlay) for their toolchains.
 
 * Firefox

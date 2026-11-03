@@ -102,9 +102,13 @@ in
     gh
     gitu
 
-    # Rust (toolchains come from rustup or per-project flakes)
+    # Rust. rustup and its proxies (cargo, rustc, rust-analyzer...) come from
+    # Nix; the toolchains themselves still live in ~/.rustup and are managed
+    # with rustup commands. Projects pin theirs with per-project flakes.
+    # rust-analyzer is a rustup component, not a package here: the rustup
+    # package ships a rust-analyzer proxy that would collide with it.
     bacon
-    rust-analyzer
+    rustup
 
     # other languages and tools
     uv
@@ -151,9 +155,10 @@ in
   # ---------------------------------------------------------------------------
   # Shell environment (used by every shell home-manager manages)
   # ---------------------------------------------------------------------------
-  # Prepended to PATH in this order. ~/.cargo/bin is left to rustup's
-  # conf.d/rustup.fish; listing it here too would add it twice.
+  # Prepended to PATH in this order. ~/.cargo/bin holds `cargo install`
+  # tools only; rustup itself comes from home.packages.
   home.sessionPath = [
+    "$HOME/.cargo/bin"
     "$HOME/.local/bin"
     "$HOME/.toolbox/bin"
     "$HOME/go/bin"
