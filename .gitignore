@@ -1,9 +1,3 @@
-.vscodett.*
-.tests
-doc/tags
-debug
-.repro
-foo.*
 *.log
-data
 opencode.json
+.DS_Store
