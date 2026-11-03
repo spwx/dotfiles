@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, osConfig, pkgs, lib, ... }:
 
 let
+  # Homebrew's prefix as nix-darwin knows it (/opt/homebrew on Apple Silicon).
+  brewPrefix = osConfig.homebrew.prefix;
+
   # Neovim for vscode-neovim only, with its plugins built in (versions are
   # pinned by flake.lock). The terminal `nvim` (EDITOR) stays plain.
   # wrapRc = false keeps the wrapper from passing its own generated config,
@@ -195,13 +198,15 @@ in
   programs.fish = {
     enable = true;
 
-    # Every fish shell, interactive or not.
+    # Every fish shell, interactive or not. What `brew shellenv` sets, except
+    # PATH is appended rather than prepended, so a Nix copy of a tool wins
+    # over a Homebrew copy of the same tool. Man pages need nothing: macOS
+    # man finds share/man from the bin directories on PATH.
     shellInit = ''
-      # Homebrew (macOS only). Appended, so a Nix copy of a tool wins over
-      # a Homebrew copy of the same tool.
-      if test -d /opt/homebrew/bin
-          fish_add_path --global --append --path /opt/homebrew/bin /opt/homebrew/sbin
-      end
+      set -gx HOMEBREW_PREFIX ${brewPrefix}
+      set -gx HOMEBREW_CELLAR ${brewPrefix}/Cellar
+      set -gx HOMEBREW_REPOSITORY ${brewPrefix}
+      fish_add_path --global --append --path ${brewPrefix}/bin ${brewPrefix}/sbin
     '';
 
     shellAliases = {
@@ -212,6 +217,9 @@ in
 
     interactiveShellInit = ''
       set -g fish_greeting   # no greeting
+
+      # Completions shipped by Homebrew formulae (brew's own, among others).
+      set -a fish_complete_path ${brewPrefix}/share/fish/vendor_completions.d
     '';
   };
 }

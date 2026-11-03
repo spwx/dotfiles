@@ -48,12 +48,6 @@
     reattach = true;
   };
 
-  # ---------------------------------------------------------------------------
-  # System packages (installed for all users from nixpkgs)
-  # Empty for now; packages move here or into home-manager later.
-  # ---------------------------------------------------------------------------
-  environment.systemPackages = with pkgs; [ ];
-
   # Fonts, installed into /Library/Fonts/Nix Fonts.
   fonts.packages = with pkgs; [
     nerd-fonts.victor-mono

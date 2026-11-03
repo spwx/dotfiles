@@ -21,7 +21,7 @@ in
   # (~/Library/LaunchAgents/git.acsandmann.rift.plist).
   launchd.user.agents.rift = {
     serviceConfig = {
-      ProgramArguments = [ "/opt/homebrew/bin/rift" ];
+      ProgramArguments = [ "${config.homebrew.prefix}/bin/rift" ];
       RunAtLoad = true;
       KeepAlive = {
         Crashed = true;
@@ -38,8 +38,8 @@ in
           "/etc/profiles/per-user/${username}/bin"
           "/run/current-system/sw/bin"
           "/nix/var/nix/profiles/default/bin"
-          "/opt/homebrew/bin"
-          "/opt/homebrew/sbin"
+          "${config.homebrew.prefix}/bin"
+          "${config.homebrew.prefix}/sbin"
           "/usr/local/bin"
           "/usr/bin"
           "/bin"
