@@ -52,6 +52,9 @@
     config = { theme = "gruvbox-dark"; style = "plain"; };
   };
 
+  # Terminal. No extraConfig yet, so it writes a minimal wezterm.lua.
+  programs.wezterm.enable = true;
+
   programs.vivid = {
     enable = true;
     activeTheme = "gruvbox-dark-hard"; # sets LS_COLORS
@@ -95,6 +98,9 @@
     # other languages and tools
     uv
     zig
+
+    # containers (VMs via `podman machine`)
+    podman
 
     # terminal
     herdr

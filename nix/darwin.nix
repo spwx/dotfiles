@@ -54,6 +54,11 @@
   # ---------------------------------------------------------------------------
   environment.systemPackages = with pkgs; [ ];
 
+  # Fonts, installed into /Library/Fonts/Nix Fonts.
+  fonts.packages = with pkgs; [
+    nerd-fonts.victor-mono
+  ];
+
   # ---------------------------------------------------------------------------
   # Shell: fish from Nix, so it reads nix-darwin's /etc/fish setup.
   # The login shell itself is set by hand: chsh -s /run/current-system/sw/bin/fish
@@ -84,19 +89,15 @@
 
     brews = [
       "acsandmann/tap/rift"
-      "podman"
     ];
 
     casks = [
       "8bitdo-ultimate-software-v2"
       "claude-code"
-      "font-victor-mono-nerd-font"
-      "mactex"
       "moonlight"
       "raycast"
       "signal"
       "visual-studio-code"
-      "wezterm"
     ];
   };
 }
