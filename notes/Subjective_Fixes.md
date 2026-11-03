@@ -43,9 +43,6 @@ clear bugs. None of these were changed; each needs a decision.
   PATH) and `nix/home.nix` (fish `shellInit`). Could come from nix-darwin's
   Homebrew prefix option instead of repeating the literal. Only Apple Silicon
   is targeted (`aarch64-darwin`), so this is tidiness, not a bug.
-- **Possibly stale PATH entries** (`nix/home.nix`, `home.sessionPath`):
-  `~/go/bin` (no Go toolchain is installed by this config) and
-  `~/.toolbox/bin`. Remove if unused.
 - **iTerm2 sections** (`macos_install.org`, "Downloads" and "iTerm2
   Configuration"). WezTerm is now installed and configured by home-manager;
   if iTerm2 is no longer used, these sections are stale.

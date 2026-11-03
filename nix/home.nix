@@ -160,8 +160,6 @@ in
   home.sessionPath = [
     "$HOME/.cargo/bin"
     "$HOME/.local/bin"
-    "$HOME/.toolbox/bin"
-    "$HOME/go/bin"
     "$HOME/.opencode/bin"
   ];
 
