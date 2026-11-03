@@ -86,6 +86,27 @@ in
   };
 
   # ---------------------------------------------------------------------------
+  # ssh (writes ~/.ssh/config)
+  # ---------------------------------------------------------------------------
+  # enableDefaultConfig = false drops home-manager's old built-in defaults
+  # (it warns that they're going away); openssh's own defaults apply instead.
+  # The "*" block is always written last, after the specific hosts.
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+      "pve proxmox".User = "root";
+      # Unlock keys with the passphrase saved by `ssh-add --apple-use-keychain`
+      # and load them into the agent on first use, so nothing needs
+      # re-adding after a reboot.
+      "*" = {
+        UseKeychain = "yes";
+        AddKeysToAgent = "yes";
+      };
+    };
+  };
+
+  # ---------------------------------------------------------------------------
   # Plain CLI tools (no config or shell setup needed)
   # ---------------------------------------------------------------------------
   home.packages = with pkgs; [

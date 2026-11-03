@@ -13,15 +13,17 @@ Download and install:
 
 * Get Dot Files
 ** Create An SSH Key
-- if you leave the passphrase blank you don't need to add it to the keychain
+- set a passphrase: it's saved in the keychain below, so it's only typed once
 
 #+begin_src shell
 ssh-keygen -t ed25519 -C "your_email@example.com"
 #+end_src
 
-** Add Password For The SSH Key To The Apple Key Chain
-- skip this if the key has no passphrase
-- this simplifies SSH Agent Forwarding when there is a passphrase
+** Save The Passphrase In The Apple Keychain
+- run once; the keychain keeps it across reboots
+- after the first switch, =~/.ssh/config= (=programs.ssh= in =nix/home.nix=)
+  sets =UseKeychain= and =AddKeysToAgent=, so ssh loads the key into the
+  agent on first use without prompting
 
   #+begin_src shell
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519

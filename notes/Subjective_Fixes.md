@@ -5,10 +5,6 @@ clear bugs. None of these were changed; each needs a decision.
 
 ## Security
 
-- **Blank SSH passphrase advice** (`macos_install.org`, "Create An SSH Key").
-  The guide notes a blank passphrase skips the keychain step. With
-  `ssh-add --apple-use-keychain` the passphrase costs nothing day to day, so
-  consider recommending one outright.
 - **Third-party Homebrew tap** (`nix/darwin.nix`, `acsandmann/tap`). Needed
   for rift, and `upgrade = false` limits surprise updates, but the tap is
   unpinned. Worth keeping in mind; packaging rift in a local overlay would
