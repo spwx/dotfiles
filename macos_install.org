@@ -97,7 +97,7 @@ nix build ~/.dotfiles#darwinConfigurations.Seans-MacBook-Pro.system --no-link
 sudo darwin-rebuild switch --flake ~/.dotfiles
 
 # update nixpkgs, nix-darwin and home-manager
-nix flake update
+nix flake update --flake ~/.dotfiles
 #+end_src
 
 * iTerm2 Configuration

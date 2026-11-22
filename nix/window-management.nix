@@ -32,8 +32,11 @@ in
       Nice = -20;
       EnvironmentVariables = {
         RUST_LOG = "info";
-        # So commands run from rift's config can find your tools.
+        # So commands run from rift's config can find your tools. Starts
+        # like the shell's PATH (home.sessionPath in home.nix).
         PATH = builtins.concatStringsSep ":" [
+          "${home}/.cargo/bin"
+          "${home}/.local/bin"
           "${home}/.nix-profile/bin"
           "/etc/profiles/per-user/${username}/bin"
           "/run/current-system/sw/bin"

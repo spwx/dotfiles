@@ -102,6 +102,9 @@ in
       # and load them into the agent on first use, so nothing needs
       # re-adding after a reboot.
       "*" = {
+        # UseKeychain is Apple's own patch to OpenSSH; without this, any other
+        # ssh (e.g. Nix's openssh) rejects the whole file.
+        IgnoreUnknown = "UseKeychain";
         UseKeychain = "yes";
         AddKeysToAgent = "yes";
       };
@@ -212,7 +215,6 @@ in
     shellAliases = {
       vi = "nvim";
       cat = "bat";
-      ssh = "env TERM=xterm-256color ssh";
     };
 
     interactiveShellInit = ''
