@@ -338,7 +338,41 @@ loaded, load the package first."
   (keymap-set org-read-date-minibuffer-local-map "C-h" #'org-calendar-backward-day)
   (keymap-set org-read-date-minibuffer-local-map "C-l" #'org-calendar-forward-day)
   (keymap-set org-read-date-minibuffer-local-map "C-j" #'org-calendar-forward-week)
-  (keymap-set org-read-date-minibuffer-local-map "C-k" #'org-calendar-backward-week))
+  (keymap-set org-read-date-minibuffer-local-map "C-k" #'org-calendar-backward-week)
+  (add-hook 'org-agenda-finalize-hook #'my/org-agenda-color-calendars))
+
+;; Make Google Calendar events stand out from tasks in the agenda: each
+;; mirror file in ~/org/calendars/ gets its own colour, and all are bold.
+;; Keys are the file names (= the "caitlin:" category shown in the agenda);
+;; values are ef-themes palette names, so the colours follow the theme.
+(defvar my/calendar-colors
+  '(("caitlin"  . magenta-cooler)
+    ("celtics"  . green-cooler)
+    ("holidays" . yellow-warmer))
+  "Alist of calendar file base name -> ef-themes palette colour.")
+
+(defun my/org-agenda-color-calendars ()
+  "Bold agenda lines from ~/org/calendars/, coloured per `my/calendar-colors'.
+Runs from `org-agenda-finalize-hook', i.e. after the agenda is built."
+  (let ((cal-dir (expand-file-name "calendars/" org-directory)))
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        ;; Agenda lines carry a marker back to the entry they came from;
+        ;; day headers and blank lines don't, so they're skipped.
+        (when-let* ((marker (get-text-property (point) 'org-marker))
+                    (file (buffer-file-name (marker-buffer marker)))
+                    ((string-prefix-p cal-dir file)))
+          (let* ((color (alist-get (file-name-base file) my/calendar-colors
+                                   nil nil #'equal))
+                 ;; Unlisted calendars still get bold, just no colour.
+                 (face (if color
+                           `(:weight bold :foreground
+                             ,(ef-themes-get-color-value color))
+                         '(:weight bold))))
+            (add-face-text-property (line-beginning-position)
+                                    (line-end-position) face)))
+        (forward-line 1)))))
 
 ;; Vim-style keys for Org: >>/<< on headings, text objects, agenda keys.
 (use-package evil-org
