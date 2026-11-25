@@ -314,12 +314,19 @@ loaded, load the package first."
     (kbd "<leader>oc") #'org-capture)    ; SPC o c = "org capture"
   :custom
   (org-directory "~/org")
-  (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))
+  ;; ~/org/calendars/ holds read-only Google Calendar mirrors, rewritten every
+  ;; 30 min by org-cal-sync (nix/org-cal-sync.sh, scheduled in nix/home.nix;
+  ;; macOS launchd label org.nix-community.home.org-cal-sync).
+  ;; A directory entry pulls in every .org file inside it.
+  (org-agenda-files '("~/org/todo.org" "~/org/inbox.org" "~/org/calendars/"))
   (org-log-done 'time)                   ; CLOSED: timestamp when marked DONE
+  (org-agenda-use-time-grid nil)         ; no 8:00/10:00/... lines in the agenda
   (org-capture-templates
    '(("t" "Task" entry (file "inbox.org")
       "* TODO %?\n%U")))
-  (org-refile-targets '((org-agenda-files :maxlevel . 2)))
+  ;; Explicit files, not org-agenda-files: anything refiled into the calendar
+  ;; mirrors would be wiped on the next sync.
+  (org-refile-targets '((("~/org/todo.org" "~/org/inbox.org") :maxlevel . 2)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
   (org-startup-indented t)        ; turn on org-indent-mode in every Org buffer

@@ -12,6 +12,14 @@ let
     plugins = [ pkgs.vimPlugins.nvim-surround ];
     wrapRc = false;
   };
+
+  # Mirrors Google calendars into ~/org/calendars/ for the Emacs agenda.
+  # The script is ./org-cal-sync.sh; its launchd agent is further down.
+  orgCalSync = pkgs.writeShellApplication {
+    name = "org-cal-sync";
+    runtimeInputs = [ pkgs.curl pkgs.ical2orgpy pkgs.coreutils ];
+    text = builtins.readFile ./org-cal-sync.sh;
+  };
 in
 {
   # Set once, on first install. Like system.stateVersion, don't bump it
@@ -153,7 +161,49 @@ in
     # terminal
     herdr
     tuios
+
+    # calendar sync (defined at the top; run it by hand to sync right away)
+    orgCalSync
   ];
+
+  # ---------------------------------------------------------------------------
+  # Background jobs
+  # ---------------------------------------------------------------------------
+  # Google Calendar -> ~/org/calendars/*.org, every 30 min and at login.
+  # Feed URLs: ~/.config/org-cal-sync/calendars ("name URL" per line). They
+  # stay out of this repo: they're secret and the Nix store is world-readable.
+  # Same script on both platforms; only the scheduler differs.
+
+  # macOS: launchd agent. Log: ~/Library/Logs/org-cal-sync.log
+  launchd.agents.org-cal-sync = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    enable = true;
+    config = {
+      ProgramArguments = [ (lib.getExe orgCalSync) ];
+      StartInterval = 1800;
+      RunAtLoad = true;
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/org-cal-sync.log";
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/org-cal-sync.log";
+    };
+  };
+
+  # Linux: systemd user service + timer. Log: journalctl --user -u org-cal-sync
+  # Persistent = true catches up on a run missed while the machine was off.
+  systemd.user.services.org-cal-sync = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    Unit.Description = "Mirror Google calendars into ~/org/calendars";
+    Service = {
+      Type = "oneshot";
+      ExecStart = lib.getExe orgCalSync;
+    };
+  };
+  systemd.user.timers.org-cal-sync = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    Unit.Description = "Sync Google calendars every 30 minutes";
+    Timer = {
+      OnBootSec = "2m";
+      OnUnitActiveSec = "30m";
+      Persistent = true;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
 
   # ---------------------------------------------------------------------------
   # Dotfiles kept as files in this repo
