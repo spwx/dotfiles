@@ -33,5 +33,25 @@
           { system.configurationRevision = self.rev or self.dirtyRev or null; }
         ];
       };
+
+      # Linux (any distro with Nix installed): home-manager on its own, no
+      # system layer. Same home.nix; its macOS-only parts are guarded with
+      # pkgs.stdenv.hostPlatform.isDarwin. Apply with:
+      #   nix run home-manager -- switch --flake ~/.dotfiles#spw@linux
+      # For an ARM machine, change x86_64-linux below to aarch64-linux.
+      homeConfigurations."${username}@linux" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        # nix-darwin supplies osConfig on macOS; there's no system config here.
+        extraSpecialArgs = { inherit username; osConfig = null; };
+        modules = [
+          ./nix/home.nix
+          {
+            home.username = username;
+            home.homeDirectory = "/home/${username}";
+            # Standalone home-manager installs its own CLI for later switches.
+            programs.home-manager.enable = true;
+          }
+        ];
+      };
     };
 }

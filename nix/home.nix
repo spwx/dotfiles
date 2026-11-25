@@ -277,7 +277,8 @@ in
     # PATH is appended rather than prepended, so a Nix copy of a tool wins
     # over a Homebrew copy of the same tool. Man pages need nothing: macOS
     # man finds share/man from the bin directories on PATH.
-    shellInit = ''
+    # macOS only: brewPrefix comes from nix-darwin, which Linux doesn't have.
+    shellInit = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       set -gx HOMEBREW_PREFIX ${brewPrefix}
       set -gx HOMEBREW_CELLAR ${brewPrefix}/Cellar
       set -gx HOMEBREW_REPOSITORY ${brewPrefix}
@@ -291,6 +292,7 @@ in
 
     interactiveShellInit = ''
       set -g fish_greeting   # no greeting
+    '' + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
 
       # Completions shipped by Homebrew formulae (brew's own, among others).
       set -a fish_complete_path ${brewPrefix}/share/fish/vendor_completions.d
