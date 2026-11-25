@@ -1,0 +1,12 @@
+# Installed packages and native-compiled cache (generated, machine-specific)
+elpa/
+eln-cache/
+
+# Session state: minibuffer history, recent files, places, remote hosts
+auto-save-list/
+url/
+tramp
+history
+recentf.eld
+places.eld
+bookmarks.eld
