@@ -246,6 +246,10 @@ in
         "vscode-neovim.neovimExecutablePaths.darwin" = lib.getExe vscodeNeovim;
         "vscode-neovim.neovimInitVimPaths.darwin" =
           "${config.xdg.configHome}/vscode-neovim-config/init.lua";
+        # Todo Tree looks for the ripgrep bundled inside VS Code, which newer
+        # releases moved (now @vscode/ripgrep-universal), so it fails to find
+        # one. Point it at the Nix ripgrep instead.
+        "todo-tree.ripgrep.ripgrep" = lib.getExe pkgs.ripgrep;
       };
     };
   };
