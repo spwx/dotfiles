@@ -73,6 +73,13 @@ in
     activeTheme = "gruvbox-dark-hard"; # sets LS_COLORS
   };
 
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs;
+    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+  };
+
+
   # ---------------------------------------------------------------------------
   # git (writes ~/.config/git/config and ~/.config/git/ignore)
   # ---------------------------------------------------------------------------
@@ -158,6 +165,21 @@ in
   xdg.configFile."vscode-neovim-config/init.lua".source =
     config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/vscode-neovim-config/init.lua";
+
+  # Emacs config (package itself: programs.emacs above). Only the hand-written
+  # files are linked, so ~/.config/emacs stays a real directory holding
+  # packages (elpa/), the native-comp cache and session state (history,
+  # recentf, ...), none of which reach the repo. Out-of-store links, so edits
+  # apply on restart and Customize can still write custom.el.
+  xdg.configFile."emacs/early-init.el".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/emacs/early-init.el";
+  xdg.configFile."emacs/init.el".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/emacs/init.el";
+  xdg.configFile."emacs/custom.el".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/emacs/custom.el";
 
   # VS Code settings for vscode-neovim. VS Code itself is the Homebrew cask
   # (package = null). mutableUserSettings merges these keys into the

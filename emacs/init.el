@@ -14,6 +14,10 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror)
 
+;; init.el and friends are symlinks into ~/.dotfiles (see nix/home.nix).
+;; Open the real file so VC/magit see the repo, without asking each time.
+(setq vc-follow-symlinks t)
+
 ;;;; Environment
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns))   ; only needed for the GUI app
