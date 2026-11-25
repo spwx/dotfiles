@@ -318,21 +318,34 @@ loaded, load the package first."
   ;; 30 min by org-cal-sync (nix/org-cal-sync.sh, scheduled in nix/home.nix;
   ;; macOS launchd label org.nix-community.home.org-cal-sync).
   ;; A directory entry pulls in every .org file inside it.
-  (org-agenda-files '("~/org/todo.org" "~/org/inbox.org" "~/org/calendars/"))
+  ;; Everything lives in tasks.org; new captures land under its "Inbox" heading.
+  (org-agenda-files '("~/org/tasks.org" "~/org/calendars/"))
   (org-log-done 'time)                   ; CLOSED: timestamp when marked DONE
   (org-agenda-use-time-grid nil)         ; no 8:00/10:00/... lines in the agenda
   (org-capture-templates
-   '(("t" "Task" entry (file "inbox.org")
+   '(("t" "Task" entry (file+headline "tasks.org" "Inbox")
       "* TODO %?\n%U")))
-  ;; Explicit files, not org-agenda-files: anything refiled into the calendar
-  ;; mirrors would be wiped on the next sync.
-  (org-refile-targets '((("~/org/todo.org" "~/org/inbox.org") :maxlevel . 2)))
-  (org-refile-use-outline-path 'file)
+  ;; Only tasks.org, not org-agenda-files: anything refiled into the calendar
+  ;; mirrors would be wiped on the next sync. Level 1 = the sections (Tasks,
+  ;; Recurring, ...), level 2 = projects/tasks inside them.
+  (org-refile-targets '(("~/org/tasks.org" :maxlevel . 2)))
+  ;; One file, so the "tasks.org/" prefix is noise: show "Tasks/Foo" paths.
+  (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
+  ;; Typing a path that doesn't exist yet (e.g. "Tasks/New Project") offers
+  ;; to create the missing heading, instead of failing.
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  ;; Don't offer Inbox itself (or anything under it) as a refile destination.
+  (org-refile-target-verify-function
+   (lambda () (not (member "Inbox" (org-get-outline-path t)))))
   (org-startup-indented t)        ; turn on org-indent-mode in every Org buffer
   (org-hide-emphasis-markers t)   ; hide the *, /, ~ around emphasis
   (org-return-follows-link t)     ; RET on a link opens it
+  ;; org-habit (required in :config): consistency graph for STYLE: habit tasks.
+  (org-habit-graph-column 50)     ; start graph past long titles
+  (org-habit-show-habits-only-for-today t) ; keep future agenda days uncluttered
   :config
+  (require 'org-habit)
   ;; Date prompt: steer the calendar with C-hjkl. This keymap only
   ;; exists once Org has loaded, hence :config.
   (keymap-set org-read-date-minibuffer-local-map "C-h" #'org-calendar-backward-day)
