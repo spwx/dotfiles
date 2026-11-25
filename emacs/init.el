@@ -109,6 +109,13 @@
 (use-package evil-collection
   :after evil
   :config
+  ;; Its agenda keys bind SPC to org-agenda-show, shadowing the leader. Its
+  ;; setup runs when org-agenda loads (which org-habit can trigger during
+  ;; init), so add the unbind hook before `evil-collection-init'.
+  (add-hook 'evil-collection-setup-hook
+            (lambda (mode _keymaps)
+              (when (eq mode 'org-agenda)
+                (evil-define-key 'normal org-agenda-mode-map (kbd "SPC") nil))))
   (evil-collection-init))
 
 (use-package evil-commentary
@@ -342,6 +349,15 @@ loaded, load the package first."
   (org-agenda-files '("~/org/tasks.org" "~/org/calendars/"))
   (org-log-done 'time)                   ; CLOSED: timestamp when marked DONE
   (org-agenda-use-time-grid nil)         ; no 8:00/10:00/... lines in the agenda
+  ;; SPC o a u: open TODOs with no SCHEDULED or DEADLINE, i.e. the ones that
+  ;; never show up on the day/week agenda and are easy to forget about.
+  ;; todo "" = every not-done state; the skip function drops dated entries.
+  (org-agenda-custom-commands
+   '(("u" "Unscheduled TODOs"
+      todo ""
+      ((org-agenda-skip-function
+        '(org-agenda-skip-entry-if 'scheduled 'deadline))
+       (org-agenda-overriding-header "Unscheduled TODOs")))))
   (org-capture-templates
    '(("t" "Task" entry (file+headline "tasks.org" "Inbox")
       "* TODO %?\n%U")
@@ -410,15 +426,13 @@ Runs from `org-agenda-finalize-hook', i.e. after the agenda is built."
                                     (line-end-position) face)))
         (forward-line 1)))))
 
-;; Vim-style keys for Org: >>/<< on headings, text objects, agenda keys.
+;; Vim-style keys for Org: >>/<< on headings, text objects.
+;; Agenda keys come from evil-collection (it loads after evil-org and wins).
 (use-package evil-org
   :after org
   :hook (org-mode . evil-org-mode)
   :config
-  (require 'evil-org-agenda)
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar return))
-  (evil-org-agenda-set-keys))
-
+  (evil-org-set-key-theme '(navigation insert textobjects additional calendar return)))
 ;; Show hidden emphasis/link markup when point is on it.
 (use-package org-appear
   :hook (org-mode . org-appear-mode)
