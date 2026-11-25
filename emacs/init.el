@@ -53,6 +53,12 @@
   (recentf-mode)                   ; remember recently opened files
   (save-place-mode)                ; reopen files where you left off
   (electric-pair-mode)             ; auto-close brackets; RET between {} opens a line
+  ;; Code folding: hideshow finds the blocks, evil's z keys (za, zc, zo, zM, zR) drive it.
+  (add-hook 'prog-mode-hook #'hs-minor-mode)
+  ;; Tab toggles a fold (like za), only where hideshow is on. Binding <tab>
+  ;; rather than TAB keeps C-i free for evil-jump-forward in the GUI.
+  (with-eval-after-load 'hideshow
+    (evil-define-key 'normal hs-minor-mode-map (kbd "<tab>") #'evil-toggle-fold))
 
   ;; Automatically switch to help documentation buffers
   (add-to-list 'display-buffer-alist
