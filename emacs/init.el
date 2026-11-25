@@ -309,9 +309,23 @@ loaded, load the package first."
   :ensure nil
   :init
   ;; In :init so the keys exist before Org loads (they're what load it).
+  (defun my/org-search ()
+    "Search .org files under ~/org/ with ripgrep (consult, live preview)."
+    (interactive)
+    ;; Read when consult-ripgrep starts, so a let-binding is enough.
+    (let ((consult-ripgrep-args (append consult-ripgrep-args '("--glob=*.org"))))
+      (consult-ripgrep "~/org/")))
+  (defun my/org-find-file ()
+    "Find .org files under ~/org/ (recursively) with fd (consult, live preview)."
+    (interactive)
+    ;; consult-fd reads these args when it starts, so a let-binding is enough.
+    (let ((consult-fd-args (append consult-fd-args '("-e org"))))
+      (consult-fd "~/org/")))
   (evil-define-key '(normal visual motion) 'global
     (kbd "<leader>oa") #'org-agenda      ; SPC o a = "org agenda"
-    (kbd "<leader>oc") #'org-capture)    ; SPC o c = "org capture"
+    (kbd "<leader>oc") #'org-capture     ; SPC o c = "org capture"
+    (kbd "<leader>of") #'my/org-find-file ; SPC o f = "org file"
+    (kbd "<leader>os") #'my/org-search)  ; SPC o s = "org search"
   :custom
   (org-directory "~/org")
   ;; ~/org/calendars/ holds read-only Google Calendar mirrors, rewritten every
@@ -324,7 +338,10 @@ loaded, load the package first."
   (org-agenda-use-time-grid nil)         ; no 8:00/10:00/... lines in the agenda
   (org-capture-templates
    '(("t" "Task" entry (file+headline "tasks.org" "Inbox")
-      "* TODO %?\n%U")))
+      "* TODO %?\n%U")
+     ;; Same, plus %a: a link back to where you were when you hit SPC o c.
+     ("l" "Task with link" entry (file+headline "tasks.org" "Inbox")
+      "* TODO %?\n%U\n%a")))
   ;; Only tasks.org, not org-agenda-files: anything refiled into the calendar
   ;; mirrors would be wiped on the next sync. Level 1 = the sections (Tasks,
   ;; Recurring, ...), level 2 = projects/tasks inside them.
