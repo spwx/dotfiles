@@ -192,7 +192,30 @@
   :hook ((after-init . global-diff-hl-mode)
          ;; Refresh the markers after magit commits, stages, etc.
          (magit-pre-refresh . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh)))
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (diff-hl-flydiff-mode)                 ; update markers as you type, not just on save
+  (evil-define-key 'normal 'global
+    (kbd "]h")         #'diff-hl-next-hunk
+    (kbd "[h")         #'diff-hl-previous-hunk
+    (kbd "<leader>gr") #'diff-hl-revert-hunk         ; discard the change at point
+    (kbd "<leader>gs") #'diff-hl-stage-current-hunk  ; stage just this hunk
+    (kbd "<leader>gp") #'diff-hl-show-hunk)          ; popup showing the old text
+
+  ;; Thin bar instead of a full-width block.
+  ;; [224] = #b11100000: 3 pixels lit out of the fringe's 8, repeated down the line.
+  (define-fringe-bitmap 'my/diff-hl-thin [224] nil nil '(center repeated))
+  (setq diff-hl-fringe-bmp-function
+        (lambda (type _pos)
+          (if (eq type 'delete)
+              'diff-hl-bmp-delete     ; keep the small triangle for deleted lines
+            'my/diff-hl-thin)))
+  ;; The theme colours these faces by background only, but a fringe bitmap's
+  ;; lit pixels use the foreground. Move the colour over so only the bar is
+  ;; coloured and the rest of the fringe stays the normal background.
+  (dolist (face '(diff-hl-insert diff-hl-delete diff-hl-change))
+    (set-face-foreground face (face-background face nil t))
+    (set-face-background face 'unspecified)))
 
 ;;;; Emacs Lisp
 (use-package elisp-mode
