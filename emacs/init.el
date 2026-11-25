@@ -93,6 +93,7 @@
     (kbd "<leader>fs") #'save-buffer              ; SPC f s = save file
     (kbd "<leader>bd") #'kill-current-buffer
     (kbd "<leader>bl") #'ibuffer
+    (kbd "<leader>`")  #'evil-switch-to-windows-last-buffer ; toggle with previous buffer
     (kbd "<leader>pp") #'project-switch-project
     (kbd "<leader>pc") #'project-compile          ; run a command at the project root
     (kbd "<leader>pr") #'recompile              ; rerun the last one
