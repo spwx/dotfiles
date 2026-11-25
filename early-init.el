@@ -13,5 +13,13 @@
 (push '(ns-transparent-titlebar . t) default-frame-alist)
 (push '(ns-appearance . dark) default-frame-alist)
 
+;; Play nicely with the Rift tiling window manager.
+;; Accept the exact pixel size Rift asks for instead of rounding to whole
+;; character cells, which can set off a resize back-and-forth with Rift.
+(setq frame-resize-pixelwise t)
+;; Don't resize the frame on our own when fonts or UI elements change,
+;; which would make Rift re-tile.
+(setq frame-inhibit-implied-resize t)
+
 (setq inhibit-startup-screen t)
 
