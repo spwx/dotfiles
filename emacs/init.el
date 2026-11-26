@@ -241,11 +241,19 @@
 ;; Protocol), so Claude Code needs its ACP adapter on PATH: the
 ;; claude-agent-acp package in nix/home.nix.
 (use-package agent-shell
+  ;; These aren't autoloaded by agent-shell; listing them here makes
+  ;; use-package autoload them, so pressing their key loads the package.
+  :commands (agent-shell-send-dwim agent-shell-help-menu)
   :init
   ;; In :init so the keys exist before agent-shell loads (pressing one loads it).
   (evil-define-key '(normal visual motion) 'global
     (kbd "<leader>aa") #'agent-shell                          ; start/reuse any agent
-    (kbd "<leader>ac") #'agent-shell-anthropic-start-claude-code) ; new Claude session
+    (kbd "<leader>ac") #'agent-shell-anthropic-start-claude-code ; new Claude session
+    ;; Region (or error at point) into this project's shell. C-u: new
+    ;; shell; C-u C-u: pick which shell.
+    (kbd "<leader>as") #'agent-shell-send-dwim
+    (kbd "<leader>at") #'agent-shell-toggle                   ; show/hide agent window
+    (kbd "<leader>a?") #'agent-shell-help-menu)               ; transient of all commands
   :custom
   ;; SPC a a goes straight to Claude instead of asking which agent.
   (agent-shell-preferred-agent-config 'claude-code)
