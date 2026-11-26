@@ -235,6 +235,47 @@
     (set-face-foreground face (face-background face nil t))
     (set-face-background face 'unspecified)))
 
+;;;; AI agents
+;; agent-shell: chat with coding agents (Claude Code, Codex, Gemini, ...) in
+;; a normal Emacs buffer. It talks to each agent over ACP (Agent Client
+;; Protocol), so Claude Code needs its ACP adapter on PATH: the
+;; claude-agent-acp package in nix/home.nix.
+(use-package agent-shell
+  :init
+  ;; In :init so the keys exist before agent-shell loads (pressing one loads it).
+  (evil-define-key '(normal visual motion) 'global
+    (kbd "<leader>aa") #'agent-shell                          ; start/reuse any agent
+    (kbd "<leader>ac") #'agent-shell-anthropic-start-claude-code) ; new Claude session
+  :custom
+  ;; SPC a a goes straight to Claude instead of asking which agent.
+  (agent-shell-preferred-agent-config 'claude-code)
+  :config
+  ;; This calls an agent-shell function, so it goes in :config (after it
+  ;; loads) rather than :custom, which runs before.
+  ;; Use the Claude subscription you're logged into with the `claude' CLI,
+  ;; not an API key.
+  (setq agent-shell-anthropic-authentication
+        (agent-shell-anthropic-make-authentication :login t))
+  ;; RET sends the prompt in insert state too (evil-collection already does
+  ;; normal state, and also follows links/buttons at point there).
+  ;; Bind <return> as well as RET: the GUI Enter key sends <return>, which
+  ;; only falls back to RET when nothing binds <return> itself, and
+  ;; evil-collection binds insert <return> to `newline' in the parent
+  ;; shell-maker-mode-map.
+  ;; S-RET or M-RET adds a newline, for multi-line prompts. M-RET normally
+  ;; queues/steers a prompt while the agent is busy; that's still on
+  ;; M-x agent-shell-submit-override.
+  (evil-define-key 'insert agent-shell-mode-map
+    (kbd "RET")        #'agent-shell-submit
+    (kbd "<return>")   #'agent-shell-submit
+    (kbd "S-<return>") #'newline
+    (kbd "M-RET")      #'newline
+    (kbd "M-<return>") #'newline)
+  ;; Proposed-edit diffs take single-key answers (y/n/...), so open them in
+  ;; Emacs state; C-z switches back to evil if needed. (In normal state,
+  ;; evil-collection offers gy/gn to accept/reject and q to quit.)
+  (add-hook 'agent-shell-diff-mode-hook #'evil-emacs-state))
+
 ;;;; Emacs Lisp
 (use-package elisp-mode
   :ensure nil                          ; built in
@@ -326,7 +367,10 @@ loaded, load the package first."
     "Search .org files under ~/org/ with ripgrep (consult, live preview)."
     (interactive)
     ;; Read when consult-ripgrep starts, so a let-binding is enough.
-    (let ((consult-ripgrep-args (append consult-ripgrep-args '("--glob=*.org"))))
+    ;; The default value is one string, and `append' on a string splits it
+    ;; into characters, so wrap it in a list first (consult splits strings).
+    (let ((consult-ripgrep-args (append (ensure-list consult-ripgrep-args)
+                                        '("--glob=*.org"))))
       (consult-ripgrep "~/org/")))
   (defun my/org-find-file ()
     "Find .org files under ~/org/ (recursively) with fd (consult, live preview)."

@@ -151,6 +151,13 @@ in
     bacon
     rustup
 
+    # AI: Claude Code's ACP adapter, which Emacs's agent-shell talks to.
+    # Claude Code itself is the Homebrew cask (darwin.nix); this drives it.
+    claude-agent-acp
+    # Reads an image off the macOS clipboard; agent-shell uses it to paste
+    # images into the prompt (Cmd-V / agent-shell-send-clipboard-image).
+    pngpaste
+
     # other languages and tools
     uv
     zig
