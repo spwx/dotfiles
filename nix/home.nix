@@ -159,6 +159,7 @@ in
     pngpaste
 
     # other languages and tools
+    pandoc   # document converter (org <-> markdown, docx, html, ...)
     uv
     zig
 
